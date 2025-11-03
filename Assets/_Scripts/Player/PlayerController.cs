@@ -172,6 +172,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && !isAttacking && isGrounded)
         {
+            FaceMouse(); 
             isAttacking = true;
             animator.SetTrigger(AnimationStrings.Attack);
             PlaySfx("playerHit");
@@ -449,6 +450,16 @@ public class PlayerController : MonoBehaviour
             currentDrag = null;
         }
         isDragging = false;
+    }
+    private void FaceMouse()
+    {
+        if (Camera.main == null) return;
+
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float dx = mouseWorld.x - transform.position.x;
+
+        if (dx > 0f && !isFacingRight()) Flip();
+        else if (dx < 0f && isFacingRight()) Flip();
     }
 
     private void FaceDragable()
