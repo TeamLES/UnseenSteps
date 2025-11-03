@@ -38,7 +38,6 @@ public class Wolf : MonoBehaviour
 
     private bool isAttacking = false;
     private bool canAttack = true;
-    private float lastFlipTime = -999f;
 
     void Awake()
     {
@@ -53,67 +52,29 @@ public class Wolf : MonoBehaviour
         if (stoppingDistance <= 0f)
             stoppingDistance = attackRange * 0.8f; // aby sa neprilepil do hr��a
     }
-
     void FixedUpdate()
     {
-        if (player == null)
-        {
-            // Bez hr��a � len patrol
-            enemyWalk.enabled = true;
-            animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0.01f);
-            return;
-        }
+        if (player == null) { enemyWalk.enabled = true; animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0.01f); return; }
 
         if (isAttacking)
         {
-            if (enemyWalk.enabled) enemyWalk.enabled = false;
+            enemyWalk.enabled = false;
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             animator.SetBool("isMoving", false);
             return;
         }
 
         float dist = Vector2.Distance(transform.position, player.position);
-
-        // --- Attack ---
         if (dist <= attackRange && canAttack && HasLineOfSight())
         {
             StartCoroutine(AttackRoutine());
             return;
         }
 
-        // --- Chase ---
-        if (dist <= detectionRange && HasLineOfSight())
-        {
-            if (enemyWalk.enabled) enemyWalk.enabled = false;
-
-            LookAtPlayer();
-
-            float dx = player.position.x - transform.position.x;
-            float absDx = Mathf.Abs(dx);
-
-            // Ak sme u� dos� bl�zko, zastav sa (nech sa nelepi do hr��a)
-            if (absDx <= stoppingDistance)
-            {
-                rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-                animator.SetBool("isMoving", false);
-            }
-            else
-            {
-                float dir = Mathf.Sign(dx);
-                float speed = enemyWalk.moveSpeed * Mathf.Max(0.01f, chaseSpeedMultiplier);
-                rb.linearVelocity = new Vector2(dir * speed, rb.linearVelocity.y);
-                animator.SetBool("isMoving", true);
-            }
-        }
-        else
-        {
-            // --- Patrol ---
-            if (!enemyWalk.enabled) enemyWalk.enabled = true;
-            animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0.01f);
-        }
+        enemyWalk.enabled = true; // patrol/chase: EnemyWalk
+        animator.SetBool("isMoving", Mathf.Abs(rb.linearVelocity.x) > 0.01f);
     }
 
-    // --- Line of Sight: stena medzi vlkom a hr��om? (pou�ij groundLayer z EnemyWalk) ---
     bool HasLineOfSight()
     {
         if (player == null) return false;
@@ -122,26 +83,8 @@ public class Wolf : MonoBehaviour
         Vector2 dir = (player.position - transform.position).normalized;
         float distance = Vector2.Distance(origin, player.position);
 
-        // ak ray naraz� na zem/stenu, hr�� je skryt�
         RaycastHit2D hit = Physics2D.Raycast(origin, dir, distance, enemyWalk.groundLayer);
         return hit.collider == null;
-    }
-
-    // --- Flip smerom k hr��ovi s cooldownom ---
-    void LookAtPlayer()
-    {
-        float xDiff = player.position.x - transform.position.x;
-        if (Mathf.Abs(xDiff) < 0.05f) return;
-        if (Time.time - lastFlipTime < flipCooldown) return;
-
-        bool playerOnRight = xDiff > 0f;
-        bool facingRight = enemyWalk.isFacingRight;
-
-        if ((playerOnRight && !facingRight) || (!playerOnRight && facingRight))
-        {
-            enemyWalk.Flip();
-            lastFlipTime = Time.time;
-        }
     }
 
     IEnumerator AttackRoutine()
@@ -153,25 +96,19 @@ public class Wolf : MonoBehaviour
         rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
         animator.SetBool("isMoving", false);
 
-        // Spus� �to�n� trigger (vlo�� Animation Events: EnableHitbox / DisableHitbox)
         animator.SetTrigger("Attack");
 
         yield return new WaitForSeconds(attackCooldown);
-        // Pozn.: cooldown je od�tartovan� od za�iatku anim�cie (jednoduch�ie ladenie)
         isAttacking = false;
         canAttack = true;
     }
 
-    /// <summary>
-    /// Zavolaj z Animation Event v �to�nej anim�cii na frame, ke� m� hitbox za�a� bra�.
-    /// </summary>
     public void EnableHitbox()
     {
         isAttacking = true;
 
         if (hitboxCollider != null)
         {
-            // Prim�rne: EnemyAttackHitbox komponent riadi damage okno
             var dealer = hitboxCollider.GetComponent<EnemyAttackHitbox>();
             if (dealer != null)
             {
@@ -180,17 +117,12 @@ public class Wolf : MonoBehaviour
             }
             else
             {
-                // Fallback damage � pre pr�pad, �e nem� EnemyAttackHitbox.
-                // Prebehni hr��a v dosahu hitboxu a rovno mu daj damage.
                 hitboxCollider.enabled = true; // nech sa d� vizu�lne debuggova�/trafi�
                 DoFallbackDamage();
             }
         }
     }
 
-    /// <summary>
-    /// Zavolaj z Animation Event v �to�nej anim�cii, ke� m� hitbox presta� bra�.
-    /// </summary>
     public void DisableHitbox()
     {
         if (hitboxCollider != null)
@@ -203,16 +135,13 @@ public class Wolf : MonoBehaviour
             }
             else
             {
-                // vypneme a skon�� fallback okno
                 hitboxCollider.enabled = false;
             }
         }
 
-        // �tok dobehol, AI m��e pokra�ova�
         isAttacking = false;
     }
 
-    // --- Fallback damage ak nem� EnemyAttackHitbox na hitboxe ---
     void DoFallbackDamage()
     {
         // Vezmeme stred a polomer z hitboxu a traf�me 1 hr��a

@@ -31,7 +31,7 @@ public class EnemyShooter : MonoBehaviour
     void Awake()
     {
         enemyHealth = GetComponent<EnemyHealth>();
-        enemyWalk = GetComponent<EnemyWalk>();
+        enemyWalk = GetComponent<EnemyWalk>(); 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
@@ -39,30 +39,26 @@ public class EnemyShooter : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (player == null)
-        {
-            enemyWalk.enabled = true;
-            return;
-        }
+        if (player == null) { enemyWalk.enabled = true; return; }
 
-        // ak je hrac v dosahu + viditelny
-        if (PlayerInRange() && HasLineOfSight())
+        // readyToShoot len ak chase beží a sme v sweet spote
+        bool readyToShoot = enemyWalk.enableChase
+                            && enemyWalk.isChasing
+                            && enemyWalk.isAtStopDistance
+                            && PlayerInRange()
+                            && HasLineOfSight();
+
+        if (readyToShoot)
         {
-            // zastav a strielaj
             enemyWalk.enabled = false;
             rb.linearVelocity = Vector2.zero;
-
-            // Uistime sa, ze animacia nebude "walking"
             animator.SetBool(EnemyShooterAnimationStrings.IsMoving, false);
-
             LookAtPlayer();
             StopAndShoot();
         }
         else
         {
-            // hrac mimo dosahu -> patrola
-            enemyWalk.enabled = true;
-            // nastavit isMoving = true, nech hrá "walk" animáciu
+            enemyWalk.enabled = true; // patrol/chase rieši motor
             animator.SetBool(EnemyShooterAnimationStrings.IsMoving, true);
         }
     }
@@ -90,21 +86,18 @@ public class EnemyShooter : MonoBehaviour
     {
         float xDiff = player.position.x - transform.position.x;
         if (Mathf.Abs(xDiff) < 0.5f) return;
-
         if (Time.time - lastFlipTime < flipCooldown) return;
 
-        bool playerOnRight = (xDiff > 0);
-        bool isFacingRight = enemyWalk.isFacingRight;  // preèítame si aktuálny stav z EnemyWalk
+        bool playerOnRight = xDiff > 0f;
+        bool facingRight = enemyWalk.isFacingRight;
 
-        // Ak je hráè v opaènom smere, flipni
-        if (playerOnRight && !isFacingRight || !playerOnRight && isFacingRight)
+        if ((playerOnRight && !facingRight) || (!playerOnRight && facingRight))
         {
-            enemyWalk.Flip();
+            enemyWalk.DoFlip();    
             lastFlipTime = Time.time;
         }
     }
 
-    
     void StopAndShoot()
     {
         if (canAttack)
@@ -115,7 +108,6 @@ public class EnemyShooter : MonoBehaviour
         }
     }
 
-
     IEnumerator ShootRoutine()
     {
         canAttack = false;
@@ -124,7 +116,6 @@ public class EnemyShooter : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-
 
     void ShootProjectile()
     {
@@ -144,7 +135,6 @@ public class EnemyShooter : MonoBehaviour
         rbBullet.linearVelocity = dir * 10f;
     }
 
-    // --- Pomocné debug vizuály ---
     void OnDrawGizmosSelected()
     {
         // Èervená gulièka okolo nepriate¾a naznaèujúca detectionRange
@@ -158,4 +148,10 @@ public class EnemyShooter : MonoBehaviour
             Gizmos.DrawLine(firePoint.position, player.position);
         }
     }
+}
+
+public static class EnemyShooterAnimationStrings
+{
+    public const string IsMoving = "isMoving";
+    public const string IsAttacking = "isAttacking";
 }

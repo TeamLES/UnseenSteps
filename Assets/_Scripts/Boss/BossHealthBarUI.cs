@@ -5,7 +5,7 @@ using TMPro;
 public class BossHealthBarUI : MonoBehaviour
 {
     [Header("References")]
-    public BossHealth boss;
+    public EnemyHealth boss;
     public Slider slider;
     public TMP_Text valueText;
     public CanvasGroup canvasGroup;
@@ -19,7 +19,7 @@ public class BossHealthBarUI : MonoBehaviour
     void Awake()
     {
         if (autoFindBoss && boss == null)
-            boss = FindObjectOfType<BossHealth>();
+            boss = FindObjectOfType<EnemyHealth>();
     }
 
     void Start()
@@ -83,7 +83,7 @@ public class BossHealthBarUI : MonoBehaviour
     public void Show() => ShowImmediate();
     public void Hide() => HideImmediate();
 
-    public void SetBoss(BossHealth newBoss)
+    public void SetBoss(EnemyHealth newBoss)
     {
         boss = newBoss;
         if (boss && slider)

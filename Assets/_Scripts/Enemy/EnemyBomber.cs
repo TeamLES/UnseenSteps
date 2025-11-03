@@ -35,82 +35,41 @@ public class EnemyBomber : MonoBehaviour
     private bool isFusing = false;
     private bool isExploding = false;
 
+    // EnemyBomber.cs (Awake ñ po referenci·ch)
     void Awake()
     {
         enemyWalk = GetComponent<EnemyWalk>();
-        enemyHealth = GetComponent<EnemyHealth>();
+        enemyHealth = GetComponent<EnemyHealth>(); 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
-
-        // ötartujeme na patrol r˝chlosti
-        enemyWalk.moveSpeed = patrolSpeed;
     }
-
     void FixedUpdate()
     {
         if (player == null || isExploding) return;
 
-        // poËas fuse uû niË nerobÌme (stojÌme a Ëak·me na v˝buch)
         if (isFusing)
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             return;
         }
 
+        // ak sme dostatoËne blÌzko a vidÌme hr·Ëa -> spustiù fuse
         float dist = Vector2.Distance(transform.position, player.position);
-
-        if (dist <= detectionRange && (!requireLineOfSight || HasLineOfSight()))
+        if (dist <= explodeRange && (!requireLineOfSight || HasLineOfSight()))
         {
-            // chase mÛd: zvyö r˝chlosù a pozeraj sa na hr·Ëa
-            enemyWalk.enabled = true;
-            enemyWalk.moveSpeed = chaseSpeed;
-            animator.SetBool(EnemyBomberAnimationStrings.IsMoving, true);
-
-            LookAtPlayer();
-
-            // sme v dosahu na v˝buch? spusti fuse
-            if (dist <= explodeRange)
-            {
-                StartFuse();
-            }
-        }
-        else
-        {
-            // beûn· patrola
-            enemyWalk.enabled = true;
-            enemyWalk.moveSpeed = patrolSpeed;
-            animator.SetBool(EnemyBomberAnimationStrings.IsMoving, true);
+            StartFuse(); // vypne EnemyWalk v StartFuse
+            return;
         }
     }
 
     bool HasLineOfSight()
     {
-        // rovnak· logika ako u Shootra ñ reusni layer z EnemyWalk
-        // (ray zhruba z pozÌcie trupu smerom k hr·Ëovi)
         Vector2 origin = transform.position;
         Vector2 direction = (player.position - transform.position).normalized;
         float distance = Vector2.Distance(origin, player.position);
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, enemyWalk.groundLayer);
         return hit.collider == null;
-    }
-
-    void LookAtPlayer()
-    {
-        if (player == null) return;
-
-        float xDiff = player.position.x - transform.position.x;
-        if (Mathf.Abs(xDiff) < 0.15f) return;
-        if (Time.time - lastFlipTime < flipCooldown) return;
-
-        bool playerOnRight = (xDiff > 0);
-        bool isFacingRight = enemyWalk.isFacingRight;
-
-        if ((playerOnRight && !isFacingRight) || (!playerOnRight && isFacingRight))
-        {
-            enemyWalk.Flip();
-            lastFlipTime = Time.time;
-        }
     }
 
     void StartFuse()
