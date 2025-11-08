@@ -214,9 +214,9 @@ MonoBehaviour:
   enableChase: 1
   targetTag: Player
   target: {fileID: 5786032299241951369, guid: 85f10cd069e41464f8ae4a5593c345f1, type: 3}
-  detectionRange: 6
+  detectionRange: 5
   requireLineOfSight: 0
-  stoppingDistance: 1
+  stoppingDistance: 0
   chaseSpeedMultiplier: 1.2
   maxVerticalChaseDelta: 0.9
   obeyEdgesDuringChase: 1
