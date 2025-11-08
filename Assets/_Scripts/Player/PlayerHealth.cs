@@ -81,20 +81,22 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     IEnumerator DamageRoutine()
     {
+        StartCoroutine(BlinkEffect());
+
+        if (invulnerabilityDuration <= 0f)
+            yield break;
+
         isInvulnerable = true;
 
-       
-        yield return StartCoroutine(BlinkEffect());
-
-        yield return new WaitForSeconds(invulnerabilityDuration);
+        yield return new WaitForSecondsRealtime(invulnerabilityDuration);
 
         isInvulnerable = false;
     }
 
     IEnumerator BlinkEffect()
     {
-        int blinkCount = 6;
-        float blinkDuration = 0.15f;
+        int blinkCount = 4;
+        float blinkDuration = 0.1f;
 
         for (int i = 0; i < blinkCount; i++)
         {

@@ -45,11 +45,11 @@ public class EnemyBoss : MonoBehaviour
         if (attackOrigin == null) attackOrigin = transform;
 
         // Pohyb – rešpektuj Inspector:
-        enemyWalk.enableChase = true;                 // OK ponechať
-                                                      // N E N A S T A V U J  requireLineOfSight  TU   (nechaj podľa Inspectoru)
+        enemyWalk.enableChase = true;                 
+                                                       
         enemyWalk.detectionRange = detectionRange;
-        enemyWalk.maxVerticalChaseDelta = 2.5f;            // boss je vysoký – povol väčšiu odchýlku
-        enemyWalk.target = player;              // istota: prepíš na živého hráča
+        enemyWalk.maxVerticalChaseDelta = 2.5f;            
+        enemyWalk.target = player;               
 
         // --- HITBOX ---
         if (meleeHitbox == null)
@@ -59,7 +59,6 @@ public class EnemyBoss : MonoBehaviour
         {
             var col = meleeHitbox.GetComponent<Collider2D>();
             if (col) { col.isTrigger = true; col.enabled = false; }
-            // zabíjal na 1 ranu? drž damage nízky (alebo nastav v Inspectore)
             meleeHitbox.damage = Mathf.Clamp(meleeHitbox.damage, 1, 2);
         }
     }

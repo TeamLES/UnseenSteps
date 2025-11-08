@@ -206,6 +206,9 @@ MonoBehaviour:
   speed: 8
   jumpForce: 15
   maxFallSpeed: -25
+  staggerMoveMultiplier: 0
+  attackMoveMultiplier: 0.4
+  lockAttackDirection: 0
   maxJumpCount: 2
   currentJumpCount: 0
   dashSpeed: 20
@@ -289,7 +292,7 @@ MonoBehaviour:
   maxHealth: 5
   health: 5
   knockbackForce: 10
-  invulnerabilityDuration: 2
+  invulnerabilityDuration: 1.5
 --- !u!1 &6095939309536450333
 GameObject:
   m_ObjectHideFlags: 0

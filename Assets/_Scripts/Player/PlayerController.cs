@@ -12,6 +12,14 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 15f;
     public float maxFallSpeed = -25f;
 
+    [Header("Hit Reaction / Stagger")]
+    [Tooltip("Koľko % rýchlosti ostane počas zásahu (0.4 = 40%).")]
+    public float staggerMoveMultiplier = 0.4f;
+
+    [Header("Attack Movement")]
+    [Range(0f, 1.5f)] public float attackMoveMultiplier = 0.5f;
+    public bool lockAttackDirection = true;
+
     [Header("Double Jump")]
     public int maxJumpCount = 2;
     public int currentJumpCount;
@@ -101,7 +109,7 @@ public class PlayerController : MonoBehaviour
         groundAndDragLayer = groundLayer | dragableLayer;
         playerHealth = GetComponent<PlayerHealth>();
     }
-
+    
     void Update()
     {
         if (PauseMenu.IsPaused) return;  
@@ -123,12 +131,15 @@ public class PlayerController : MonoBehaviour
             }
         }
         horizontal = Input.GetAxisRaw("Horizontal");
-        
+
         if (isAttacking)
         {
-            horizontal = 0f;
-            return;
-        }
+             if (lockAttackDirection)
+            {
+                if (isFacingRight() && horizontal < 0f) horizontal = 0f;
+                else if (!isFacingRight() && horizontal > 0f) horizontal = 0f;
+            }
+         }
 
         if (isDragging)
         {
@@ -143,7 +154,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (isStunned) return;
+        //if (isStunned) return;
 
         if (DialogueManager.GetInstance().dialogueIsPlaying)
         {
@@ -170,15 +181,15 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && !isAttacking && isGrounded)
+        if (Input.GetMouseButtonDown(0) && !isAttacking && isGrounded && !isStunned)
         {
-            FaceMouse(); 
+            FaceMouse();
             isAttacking = true;
             animator.SetTrigger(AnimationStrings.Attack);
             PlaySfx("playerHit");
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && abilitiesData.canDash && !isDashing && Time.time - lastDashTime >= dashCooldown)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && abilitiesData.canDash && !isDashing && !isStunned && Time.time - lastDashTime >= dashCooldown)
         {
             StartCoroutine(Dash());
         }
@@ -201,36 +212,23 @@ public class PlayerController : MonoBehaviour
     {
         if (PauseMenu.IsPaused) return;
 
-        void FixedUpdate()
-        {
-
-            if (rb.linearVelocity.y < maxFallSpeed)
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxFallSpeed);
-
-        }
-
-        if (isAttacking)
-        {
-            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-            return;
-        }
+        if (rb.linearVelocity.y < maxFallSpeed)
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxFallSpeed);
 
         if (isDashing) return;
-
-        if (DialogueManager.GetInstance().dialogueIsPlaying)
-        {
-            return;
-        }
+        if (DialogueManager.GetInstance().dialogueIsPlaying) return;
 
         if (!isWallSliding)
         {
+            float moveMult = (isStunned ? staggerMoveMultiplier : 1f) * (isAttacking ? attackMoveMultiplier : 1f);
+
             if ((horizontal > 0 && !CanMoveInDirection(1)) || (horizontal < 0 && !CanMoveInDirection(-1)))
             {
                 rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             }
             else
             {
-                Vector2 targetVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+                Vector2 targetVelocity = new Vector2(horizontal * speed * moveMult, rb.linearVelocity.y);
                 rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, targetVelocity, 0.2f);
             }
         }
@@ -242,6 +240,7 @@ public class PlayerController : MonoBehaviour
         CheckGround();
         CheckWall();
     }
+
     void Jump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
@@ -250,6 +249,7 @@ public class PlayerController : MonoBehaviour
         Instantiate(jumpEffectPrefab, spawnPos, Quaternion.identity);
         currentJumpCount--;
     }
+   
     IEnumerator WallJump()
     {
         canWallStick = false;
@@ -262,6 +262,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(wallJumpCooldown);
         canWallStick = true;
     }
+    
     IEnumerator Dash()
     {
 
@@ -451,6 +452,7 @@ public class PlayerController : MonoBehaviour
         }
         isDragging = false;
     }
+   
     private void FaceMouse()
     {
         if (Camera.main == null) return;
