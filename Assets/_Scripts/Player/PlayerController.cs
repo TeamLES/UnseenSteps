@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && !isAttacking && isGrounded && !isStunned)
+        if (Input.GetMouseButtonDown(0) && !isAttacking && !isStunned && !isWallSliding && !isDashing)
         {
             FaceMouse();
             isAttacking = true;
