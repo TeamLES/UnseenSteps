@@ -12,14 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f17484f7575b6b499288ed755af6352, type: 3}
   m_Name: GameStats
   m_EditorClassIdentifier: 
-  totalEnemyKills: 2
-  playerDeaths: 5
-  coinsCollected: 6
+  totalEnemyKills: 0
+  playerDeaths: 0
+  coinsCollected: 0
   potionsUsed: 0
   abilitiesUsed: 0
   timePlayedSeconds: 0
-  perEnemyList:
-  - id: Enemy
-    count: 2
+  perEnemyList: []
   perPotionList: []
   perAbilityList: []

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730d3499c4db6cc45bd4adaeffc8a952, type: 3}
   m_Name: InventoryData
   m_EditorClassIdentifier: 
-  healPotions: 20
-  revealPotions: 34
+  healPotions: 0
+  revealPotions: 0
   coins: 0
   keys: 0
