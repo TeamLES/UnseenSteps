@@ -12,6 +12,11 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 15f;
     public float maxFallSpeed = -25f;
 
+    [Header("Coyote Time")]
+    [Tooltip("Časové okno po zídení z hrany, počas ktorého môžeš ešte skočiť.")]
+    public float coyoteTime = 0.15f;
+    private float coyoteCounter = 0f;
+
     [Header("Hit Reaction / Stagger")]
     [Tooltip("Koľko % rýchlosti ostane počas zásahu (0.4 = 40%).")]
     public float staggerMoveMultiplier = 0.4f;
@@ -131,6 +136,8 @@ public class PlayerController : MonoBehaviour
             }
         }
         horizontal = Input.GetAxisRaw("Horizontal");
+        if (isGrounded) coyoteCounter = coyoteTime;
+        else coyoteCounter = Mathf.Max(0f, coyoteCounter - Time.deltaTime);
 
         if (isAttacking)
         {
@@ -166,15 +173,18 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
         {
+            
             if ((isWallSliding || isTouchingWall) && abilitiesData.canWallJump)
             {
                 StartCoroutine(WallJump());
             }
-            else if (isGrounded)
+            
+            else if (isGrounded || coyoteCounter > 0f)
             {
-
                 Jump();
+                coyoteCounter = 0f; 
             }
+           
             else if (currentJumpCount > 0 && abilitiesData.canDoubleJump)
             {
                 Jump();
