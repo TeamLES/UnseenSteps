@@ -14,23 +14,16 @@ public class StatsUI : MonoBehaviour
     public TMP_Text potionsText;
     public TMP_Text abilitiesText;
 
-    [Tooltip("Aktualizovať čas hrania raz za sekundu, keď je panel otvorený.")]
-    public bool autoRefreshEachSecond = true;
-
-    float nextTick;
-
     GameStats S => stats ? stats : StatsManager.Instance ? StatsManager.Instance.stats : null;
 
     void OnEnable()
     {
         Refresh();
-        nextTick = 0f;
     }
 
     void Update()
     {
-        if (!autoRefreshEachSecond) return;
-        if (Time.unscaledTime >= nextTick) { nextTick = Time.unscaledTime + 1f; RefreshQuick(); }
+
     }
 
     public void Refresh()
@@ -44,11 +37,6 @@ public class StatsUI : MonoBehaviour
         if (abilitiesText) abilitiesText.text = "Abilities used: " + s.AbilitiesUsed.ToString();
     }
 
-    void RefreshQuick()
-    {
-        var s = S; if (s == null || !timeText) return;
-        timeText.text = "Time played: " + FormatTime(s.TimePlayedSeconds);
-    }
 
     string FormatTime(float secs)
     {
