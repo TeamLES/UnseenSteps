@@ -441,8 +441,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 6042233043023394395}
-  tooltipUI: {fileID: 3313721256122097270}
-  interactKey: 102
   animator: {fileID: 5044764657450428196}
   activateTrigger: Activate
 --- !u!1 &6929296310850304878

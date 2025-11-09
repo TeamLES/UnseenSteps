@@ -287,23 +287,32 @@ public class CheckpointManager : MonoBehaviour
 
         Checkpoint best = null;
         float bestD = float.MaxValue;
+
         foreach (var cp in cps)
         {
-            var p = cp != null ? cp.SpawnPos : cp.transform.position;
+            var p = cp ? cp.SpawnPos : Vector3.zero;
             float d = (p - pos).sqrMagnitude;
             if (d < bestD) { bestD = d; best = cp; }
         }
-        if (best == null) return;
+        if (!best) return;
 
         try
         {
-            if (best.tooltipUI) best.tooltipUI.SetActive(false);
+            
+            var m = typeof(Checkpoint).GetMethod(
+                "ForceActivateAfterRespawn",
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+            );
+            if (m != null) { m.Invoke(best, null); return; }
+
+           
             if (best.animator && !string.IsNullOrEmpty(best.activateTrigger))
                 best.animator.SetTrigger(best.activateTrigger);
 
-            var f = typeof(Checkpoint).GetField("isActivated", BindingFlags.Instance | BindingFlags.NonPublic);
+            var f = typeof(Checkpoint).GetField("isActivated",
+                     BindingFlags.Instance | BindingFlags.NonPublic);
             if (f != null) f.SetValue(best, true);
         }
-        catch { /* ignore */ }
+        catch {  }
     }
 }

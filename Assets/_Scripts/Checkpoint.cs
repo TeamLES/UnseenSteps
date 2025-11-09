@@ -3,15 +3,12 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     [Header("Setup")]
-    public Transform spawnPoint;          
-    public GameObject tooltipUI;           
-    public KeyCode interactKey = KeyCode.C;
+    public Transform spawnPoint;
 
     [Header("VFX/Audio/Anim")]
-    public Animator animator;               
+    public Animator animator;
     public string activateTrigger = "Activate";
 
-    bool playerInRange;
     bool isActivated;
 
     void Reset()
@@ -25,31 +22,16 @@ public class Checkpoint : MonoBehaviour
     void Start()
     {
         if (!animator) animator = GetComponent<Animator>();
-        if (tooltipUI) tooltipUI.SetActive(false);
-    }
-
-    void Update()
-    {
-        if (isActivated)
-        {
-            if (tooltipUI && tooltipUI.activeSelf) tooltipUI.SetActive(false);
-            return;
-        }
-
-        if (playerInRange)
-        {
-            if (tooltipUI && !tooltipUI.activeSelf) tooltipUI.SetActive(true);
-            if (Input.GetKeyDown(interactKey)) Activate();
-        }
-        else if (tooltipUI && tooltipUI.activeSelf)
-            tooltipUI.SetActive(false);
     }
 
     void Activate()
     {
+        if (isActivated) return;          
         isActivated = true;
-        if (tooltipUI) tooltipUI.SetActive(false);
-        if (animator && !string.IsNullOrEmpty(activateTrigger)) animator.SetTrigger(activateTrigger);
+
+        if (animator && !string.IsNullOrEmpty(activateTrigger))
+            animator.SetTrigger(activateTrigger);
+
         if (AudioManager.Instance != null)
             AudioManager.Instance.PlaySFX("checkpoint");
 
@@ -57,9 +39,20 @@ public class Checkpoint : MonoBehaviour
         Toast.Show("Saved!");
     }
 
-    void OnTriggerEnter2D(Collider2D c) { if (c.CompareTag("Player")) playerInRange = true; }
-    void OnTriggerStay2D(Collider2D c) { if (c.CompareTag("Player")) playerInRange = true; }
-    void OnTriggerExit2D(Collider2D c) { if (c.CompareTag("Player")) playerInRange = false; }
+    public void ForceActivateAfterRespawn()
+    {
+        if (isActivated) return;
+        isActivated = true;
+
+        if (animator && !string.IsNullOrEmpty(activateTrigger))
+            animator.SetTrigger(activateTrigger);
+    }
+
+    void OnTriggerEnter2D(Collider2D c)
+    {
+        if (!isActivated && c.CompareTag("Player"))
+            Activate();                
+    }
 
     public Vector3 SpawnPos => (spawnPoint ? spawnPoint.position : transform.position);
 }
