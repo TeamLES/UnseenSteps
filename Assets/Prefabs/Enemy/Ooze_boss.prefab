@@ -403,6 +403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
+  enemyId: Enemy
   blinkOnHit: 1
   blinkRenderer: {fileID: 906123945825223855}
   blinkCount: 3

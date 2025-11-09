@@ -188,6 +188,7 @@ public class PlayerController : MonoBehaviour
             else if (currentJumpCount > 0 && abilitiesData.canDoubleJump)
             {
                 Jump();
+                AddAbilityUse("DoubleJump");
             }
         }
 
@@ -266,6 +267,7 @@ public class PlayerController : MonoBehaviour
         float jumpDirection = isFacingRight() ? -1 : 1;
         rb.linearVelocity = new Vector2(wallJumpForceX * jumpDirection, wallJumpForceY);
         PlaySfx("jump");
+        AddAbilityUse("WallJump");
         isWallSliding = false;
         wallStickCounter = stickTime;
 
@@ -283,6 +285,7 @@ public class PlayerController : MonoBehaviour
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
         rb.linearVelocity = new Vector2(horizontal * dashSpeed, 0f);
+        StatsManager.Instance?.stats?.AddAbilityUse("Dash");
 
         yield return new WaitForSeconds(dashDuration);
 
@@ -495,6 +498,7 @@ public class PlayerController : MonoBehaviour
         if (revealCircle == null || inventoryData == null) return;
         if (!inventoryData.UseRevealPotion()) return;
         if (fullRevealCo != null) StopCoroutine(fullRevealCo);
+        StatsManager.Instance?.stats?.AddPotionUse("Reveal");
         fullRevealCo = StartCoroutine(FullRevealRoutine());
     }
 
@@ -506,6 +510,7 @@ public class PlayerController : MonoBehaviour
         if (inventoryData.UseHealPotion())
         {
             playerHealth.Heal(healAmount);
+            StatsManager.Instance?.stats?.AddPotionUse("Heal");
             lastHealPotionTime = Time.time;
 
             // Spustenie efektu healu iba teraz
@@ -572,5 +577,10 @@ public class PlayerController : MonoBehaviour
         float healRemaining = Mathf.Max(0f, healPotionCooldown - (Time.time - lastHealPotionTime));
         float revealRemaining = Mathf.Max(0f, revealPotionCooldown - (Time.time - lastRevealPotionTime));
         hud.SetCooldowns(healRemaining, revealRemaining);
+    }
+
+    private void AddAbilityUse(string id)
+    {
+        StatsManager.Instance?.stats?.AddAbilityUse(id);
     }
 }

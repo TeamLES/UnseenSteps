@@ -13,6 +13,7 @@ public class ResetOnTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            StatsManager.Instance?.stats?.AddPlayerDeath();
             if (CheckpointManager.Instance != null)
                 CheckpointManager.Instance.RespawnPlayer();
         }

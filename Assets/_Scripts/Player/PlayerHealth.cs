@@ -61,6 +61,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
+            StatsManager.Instance?.stats?.AddPlayerDeath();
             if (CheckpointManager.Instance != null)
                 CheckpointManager.Instance.RespawnPlayer();
         }

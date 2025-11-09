@@ -44,7 +44,7 @@ public class CollectibleItem : MonoBehaviour
         {
             case ItemType.HealPotion:   inventoryData.AddHealPotion(amount); PlaySfx("item"); break;
             case ItemType.RevealPotion: inventoryData.AddRevealPotion(amount); PlaySfx("item"); break;
-            case ItemType.Coin:         inventoryData.AddCoins(amount); PlaySfx("coin"); break;
+            case ItemType.Coin:         inventoryData.AddCoins(amount); PlaySfx("coin"); StatsManager.Instance?.stats?.AddCoins(1); break;
             case ItemType.Key:          inventoryData.AddKeys(amount); PlaySfx("item"); break;
         }
 

@@ -7,6 +7,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public int maxHealth = 3;
     public int currentHealth;
     public bool IsDead { get; private set; }
+    [Header("Stats")]
+    public string enemyId = "Enemy";
 
     [Header("FX & Audio (optional)")]
     public bool blinkOnHit = true;
@@ -114,7 +116,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
                 case AbilityToUnlock.WallJump: abilitiesData.canWallJump = true; break;
             }
         }
-
+        var id = !string.IsNullOrEmpty(enemyId) ? enemyId : gameObject.tag;
+        StatsManager.Instance?.stats?.AddEnemyKill(string.IsNullOrEmpty(id) ? "Enemy" : id);
         Destroy(gameObject, destroyDelay);
     }
 }
