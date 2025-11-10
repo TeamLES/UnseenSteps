@@ -403,6 +403,8 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 10
   enemyId: Enemy
+  isBoss: 0
+  bossId: 
   blinkOnHit: 1
   blinkRenderer: {fileID: 3526648447228463449}
   blinkCount: 2
@@ -421,6 +423,8 @@ MonoBehaviour:
   unlockedSkillIcon: {fileID: 0}
   abilitiesData: {fileID: 0}
   unlockAbility: 0
+  saveCheckpointOnDeath: 0
+  checkpointSpawnOverride: {fileID: 0}
 --- !u!114 &3440936204377993768
 MonoBehaviour:
   m_ObjectHideFlags: 0

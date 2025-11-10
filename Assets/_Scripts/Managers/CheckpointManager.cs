@@ -50,6 +50,23 @@ public class CheckpointManager : MonoBehaviour
         SaveToPrefs();
     }
 
+    public void SaveAdHocCheckpoint(Vector3 spawnPos, bool playSfx = true, bool showToast = true)
+    {
+        if (!player) player = FindObjectOfType<PlayerController>();
+
+        lastCheckpointPos = spawnPos;
+        hasCheckpoint = true;
+
+        
+        checkpointInv = InventorySnap.From(inventory);
+        checkpointAbil = AbilitiesSnap.From(abilities);
+
+        SaveToPrefs();
+
+        if (playSfx) AudioManager.Instance?.PlaySFX("checkpoint");
+        if (showToast) Toast.Show("Saved!");
+    }
+
     // Smrť → respawn / reload
     [System.Obsolete]
     public void RespawnPlayer()
