@@ -3792,7 +3792,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: 1293.3826, y: 612.00476}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1028983885
@@ -6473,6 +6473,9 @@ MonoBehaviour:
     volume: 1
   - name: enemyExplode
     clip: {fileID: 8300000, guid: 07a98be2169586e4280bda7c911b9465, type: 3}
+    volume: 1
+  - name: enemyFuse
+    clip: {fileID: 8300000, guid: 589635d494023434c9486718ba5a68c8, type: 3}
     volume: 1
 --- !u!1 &1587957970
 GameObject:

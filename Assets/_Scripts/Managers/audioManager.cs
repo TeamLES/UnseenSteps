@@ -19,7 +19,6 @@ public class AudioManager : MonoBehaviour
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
 
-        // Nájdeme alebo vytvoríme DDOL kontajner
         var ddol = GameObject.Find("/_Managers");
         if (ddol == null)
         {
@@ -30,7 +29,6 @@ public class AudioManager : MonoBehaviour
         {
             DontDestroyOnLoad(ddol);
         }
-
         transform.SetParent(ddol.transform, worldPositionStays: true);
 
         if (!musicSource) musicSource = gameObject.AddComponent<AudioSource>();
@@ -47,6 +45,7 @@ public class AudioManager : MonoBehaviour
         musicSource.Stop();
         musicSource.clip = m.clip;
         musicSource.volume = m.volume;
+        musicSource.loop = true;
         musicSource.Play();
     }
 
@@ -57,6 +56,14 @@ public class AudioManager : MonoBehaviour
         var s = sfx.FirstOrDefault(x => x.name == name);
         if (s?.clip == null) return;
         sfxSource.PlayOneShot(s.clip, s.volume);
+    }
+
+    // ---- Helper pre získanie klipu + hlasitosti (na lokálne prehrávanie) ----
+    public bool TryGetSFXClip(string name, out AudioClip clip, out float volume)
+    {
+        var s = sfx.FirstOrDefault(x => x.name == name);
+        if (s?.clip == null) { clip = null; volume = 1f; return false; }
+        clip = s.clip; volume = s.volume; return true;
     }
 }
 

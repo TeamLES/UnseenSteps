@@ -349,6 +349,11 @@ MonoBehaviour:
   explosionRadius: 1.65
   explosionForce: 12
   armingDelay: 0.1
-  fuseTime: 0.5
+  fuseTime: 1.5
+  rearmCooldown: 2
+  cancelExtraDistance: 1.2
+  cancelOnLostLOS: 0
+  moveWhileFusing: 1
   explosionVfx: {fileID: 5728332300970581642, guid: 77a2eda902d62f64e8fc1ee6b370b044, type: 3}
   explodeSfx: enemyExplode
+  fuseHissSfx: enemyFuse
