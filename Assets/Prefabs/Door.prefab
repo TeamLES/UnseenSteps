@@ -441,6 +441,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 11400000, guid: d0228b304b1f70d4ab362803a4034233, type: 2}
   interactKey: 102
+  doorDustPrefab: {fileID: 0}
+  dustSpawnPoint: {fileID: 0}
+  dustScale: 1
   requiresKey: 1
   consumeKey: 1
   startUnlocked: 0
@@ -451,3 +454,7 @@ MonoBehaviour:
   playerOverride: {fileID: 0}
   persistAcrossSessions: 0
   doorId: 
+  colliderOpenDelay: 3
+  cameraShake: 1
+  shakeDuration: 3.25
+  shakeMagnitude: 0.1

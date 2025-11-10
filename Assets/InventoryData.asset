@@ -15,4 +15,4 @@ MonoBehaviour:
   healPotions: 0
   revealPotions: 0
   coins: 0
-  keys: 0
+  keys: 12
