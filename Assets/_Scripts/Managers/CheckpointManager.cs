@@ -9,6 +9,7 @@ public class CheckpointManager : MonoBehaviour
     [Header("Refs (rovnaké, ako používa hráč)")]
     public PlayerController player;
     public InventoryData inventory;
+    public GameStats gameStats;
     public PlayerAbilitiesData abilities;
 
     Vector3 lastCheckpointPos;
@@ -221,7 +222,6 @@ public class CheckpointManager : MonoBehaviour
         PlayerPrefs.DeleteKey("CP_Dash");
         PlayerPrefs.DeleteKey("CP_WJ");
         PlayerPrefs.DeleteKey("CP_WS");
-        // starý kľúč pre snapshot ignorujeme, ale môžeme ho tiež zmazať, ak existuje:
         PlayerPrefs.DeleteKey("CP_PresentIdsV1");
         PlayerPrefs.DeleteKey("CP_PresentIdsV2");
         PlayerPrefs.Save();
@@ -236,6 +236,7 @@ public class CheckpointManager : MonoBehaviour
     void ResetDataToDefaults()
     {
         if (inventory) inventory.ResetInventory();
+        if (gameStats) gameStats.ResetAll();
         if (abilities)
         {
             abilities.canDoubleJump = false;
@@ -243,6 +244,8 @@ public class CheckpointManager : MonoBehaviour
             abilities.canWallJump = false;
             abilities.canWallSlide = false;
         }
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
     }
 
     // ---------- Snapshots (len inventár/ability) ----------

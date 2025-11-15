@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public int maxHealth = 3;
     public int currentHealth;
     public bool IsDead { get; private set; }
+    public int CurrentHealth => currentHealth;
 
     [Header("Stats")]
     public string enemyId = "Enemy"; // pre GameStats per-typ (nepovinné)

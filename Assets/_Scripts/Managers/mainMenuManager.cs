@@ -12,6 +12,7 @@ public class MainMenuManager : MonoBehaviour
     [Header("Data (SO)")]
     [SerializeField] private InventoryData inventory;
     [SerializeField] private PlayerAbilitiesData abilities;
+    [SerializeField] private GameStats gameStats;
 
     [Header("Optional: Fade/Loading")]
     public Animator fadeAnimator;          
@@ -27,9 +28,10 @@ public class MainMenuManager : MonoBehaviour
     {
         PlayClick();
 
-         CheckpointManager.ClearSavedCheckpoint();
+        CheckpointManager.ClearSavedCheckpoint();
 
         if (inventory) inventory.ResetInventory();
+        if (gameStats) gameStats.ResetAll();
         if (abilities)
         {
             abilities.canDoubleJump = false;
@@ -37,6 +39,8 @@ public class MainMenuManager : MonoBehaviour
             abilities.canWallJump = false;
             abilities.canWallSlide = false;
         }
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
 
         StartCoroutine(LoadGame());
     }

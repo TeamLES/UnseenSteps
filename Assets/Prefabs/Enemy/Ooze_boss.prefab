@@ -450,6 +450,8 @@ MonoBehaviour:
   edgeLookAhead: 0.5
   edgeRayDown: 1
   wallCheckDistance: 0.2
+  showHealthBarWhenVisible: 1
+  viewportMargin: 0.05
 --- !u!1 &6393781478356868875
 GameObject:
   m_ObjectHideFlags: 0
