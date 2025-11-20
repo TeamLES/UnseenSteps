@@ -12,6 +12,7 @@ public class GameStats : ScriptableObject
     [SerializeField] private int potionsUsed = 0;
     [SerializeField] private int abilitiesUsed = 0;
     [SerializeField] private float timePlayedSeconds = 0f;
+    [SerializeField] private int revealBombsUsed = 0;
 
     [Serializable] public class EnemyKillEntry { public string id; public int count; }
     [Serializable] public class StringCount { public string id; public int count; } // potions / abilities
@@ -38,6 +39,7 @@ public class GameStats : ScriptableObject
     public int CoinsCollected => coinsCollected;
     public int PotionsUsed => potionsUsed;
     public int AbilitiesUsed => abilitiesUsed;
+    public int RevealBombs => revealBombsUsed; 
     public float TimePlayedSeconds => timePlayedSeconds;
 
     void OnEnable()
@@ -113,6 +115,13 @@ public class GameStats : ScriptableObject
         // ulož si to napr. v menu alebo pri checkpointoch (ponúkame aj manuálne SaveToPrefs())
     }
 
+    public void AddRevealBombUse(int amount = 1)
+    {
+        if (amount <= 0) return;
+        revealBombsUsed += amount;
+        SaveToPrefs();
+    }
+
     // ---------- Queries ----------
     public int GetEnemyKills(string enemyId) => perEnemy.TryGetValue(enemyId, out var c) ? c : 0;
     public int GetPotionUses(string potionId) => perPotion.TryGetValue(potionId, out var c) ? c : 0;
@@ -131,6 +140,7 @@ public class GameStats : ScriptableObject
         potionsUsed = 0;
         abilitiesUsed = 0;
         timePlayedSeconds = 0f;
+        revealBombsUsed = 0;
 
         perEnemy.Clear(); perEnemyList.Clear();
         perPotion.Clear(); perPotionList.Clear();
@@ -148,6 +158,7 @@ public class GameStats : ScriptableObject
         public int potions;
         public int abilities;
         public float time;
+        public int revealBombs;
         public List<EnemyKillEntry> perEnemy;
         public List<StringCount> perPotion;
         public List<StringCount> perAbility;
@@ -163,6 +174,7 @@ public class GameStats : ScriptableObject
             potions = potionsUsed,
             abilities = abilitiesUsed,
             time = timePlayedSeconds,
+            revealBombs = revealBombsUsed,
             perEnemy = perEnemyList,
             perPotion = perPotionList,
             perAbility = perAbilityList
@@ -187,6 +199,7 @@ public class GameStats : ScriptableObject
         potionsUsed = data.potions;
         abilitiesUsed = data.abilities;
         timePlayedSeconds = data.time;
+        revealBombsUsed = data.revealBombs;
 
         perEnemyList = data.perEnemy ?? new List<EnemyKillEntry>();
         perPotionList = data.perPotion ?? new List<StringCount>();

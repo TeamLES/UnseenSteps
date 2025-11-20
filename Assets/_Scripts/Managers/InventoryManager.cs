@@ -11,6 +11,7 @@ public class InventoryManager : MonoBehaviour
     public TMP_Text revealText;
     public TMP_Text coinsText;
     public TMP_Text keysText;
+    public TMP_Text revealBombText;
 
     [Header("Cooldown Texts")]
     public TMP_Text healCooldownText;
@@ -37,6 +38,7 @@ public class InventoryManager : MonoBehaviour
         if (revealText) revealText.text = $"{inventoryData.revealPotions}";
         if (coinsText) coinsText.text = inventoryData.coins.ToString();
         if (keysText) keysText.text = inventoryData.keys.ToString();
+        if (revealBombText) revealBombText.text = inventoryData.revealBombs.ToString();
     }
 
     public void SetCooldowns(float healSeconds, float revealSeconds)

@@ -7,6 +7,7 @@ public class InventoryData : ScriptableObject
     [Header("Inventory")]
     public int healPotions;
     public int revealPotions;
+    public int revealBombs;   // <-- NOVÉ
     public int coins;
     public int keys;
 
@@ -22,6 +23,13 @@ public class InventoryData : ScriptableObject
     public void AddRevealPotion(int amount = 1)
     {
         revealPotions = Mathf.Max(0, revealPotions + amount);
+        RaiseChanged();
+    }
+
+    // NOVÉ – pridá bomby do inventára
+    public void AddRevealBomb(int amount = 1)
+    {
+        revealBombs = Mathf.Max(0, revealBombs + amount);
         RaiseChanged();
     }
 
@@ -67,8 +75,17 @@ public class InventoryData : ScriptableObject
         {
             revealPotions--;
             RaiseChanged();
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.PlaySFX("reveal");
+            return true;
+        }
+        return false;
+    }
+
+    public bool UseRevealBomb()
+    {
+        if (revealBombs > 0)
+        {
+            revealBombs--;
+            RaiseChanged();
             return true;
         }
         return false;
@@ -89,6 +106,7 @@ public class InventoryData : ScriptableObject
     {
         healPotions = 0;
         revealPotions = 0;
+        revealBombs = 0;   // <-- nezabudni
         coins = 0;
         keys = 0;
         RaiseChanged();

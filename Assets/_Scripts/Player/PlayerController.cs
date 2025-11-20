@@ -60,6 +60,13 @@ public class PlayerController : MonoBehaviour
     float wallStickCounter;
     float horizontal;
 
+    [Header("Throwing / Reveal Bomb")]
+    public GameObject revealBombPrefab;
+    public Transform bombSpawnPoint;      // prst / ruka hráča
+    public float bombThrowArcY = 1.5f;    // mierne nahor
+    private CapsuleCollider2D playerCollider;
+    private Collider2D attackHitboxCollider;
+
     [Header("Dragging")]
     [Tooltip("Layers containing dragable objects")]
     public LayerMask dragableLayer;
@@ -113,8 +120,12 @@ public class PlayerController : MonoBehaviour
         wallStickCounter = stickTime;
         groundAndDragLayer = groundLayer | dragableLayer;
         playerHealth = GetComponent<PlayerHealth>();
+        playerCollider = GetComponent<CapsuleCollider2D>();
+
+        if (attackHitbox != null)
+            attackHitboxCollider = attackHitbox.GetComponent<Collider2D>();
     }
-    
+
     void Update()
     {
         if (PauseMenu.IsPaused) return;  
@@ -206,7 +217,14 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Input.GetMouseButtonDown(1))
-            TryStartDrag();
+        {
+            // najprv skús drag
+            bool startedDrag = TryStartDrag();
+
+            // ak nič nenašlo, skús hodiť bombu
+            if (!startedDrag)
+                TryThrowRevealBomb();
+        }
 
         WallSlideCheck();
         UpdateAnimator();
@@ -436,24 +454,23 @@ public class PlayerController : MonoBehaviour
         isStunned = false;
     }
 
-    private void TryStartDrag()
+    private bool TryStartDrag()
     {
-        // Najprv njdi najbli collider v okruhu
         Collider2D hit = Physics2D.OverlapCircle(transform.position, dragRange, dragableLayer);
-        if (hit == null) return;
+        if (hit == null) return false;
 
         Dragable dr = hit.GetComponent<Dragable>();
         if (dr != null && dr.IsInRange(transform.position))
         {
-            // Zistme skuton bod dotyku na kolderi
             Vector2 worldAnchor = hit.ClosestPoint(transform.position);
-
-            // A poleme ho do StartDrag
             dr.StartDrag(rb, worldAnchor);
 
             currentDrag = dr;
             isDragging = true;
+            return true;
         }
+
+        return false;
     }
 
     private void EndDrag()
@@ -465,7 +482,63 @@ public class PlayerController : MonoBehaviour
         }
         isDragging = false;
     }
-   
+
+    private void TryThrowRevealBomb()
+    {
+        if (!revealBombPrefab) return;
+        if (!inventoryData) return;
+
+        if (inventoryData.revealBombs <= 0) return;
+        if (!inventoryData.UseRevealBomb()) return;
+
+        StatsManager.Instance?.stats?.AddRevealBombUse();
+        FaceMouse();
+
+        float facingX = isFacingRight() ? 1f : -1f;
+
+        // spawn trochu pred a nad hráčom
+        Vector3 spawnPos = bombSpawnPoint ? bombSpawnPoint.position : transform.position;
+        spawnPos += new Vector3(0.25f * facingX, 0.25f, 0f);
+
+        var bombObj = Instantiate(revealBombPrefab, spawnPos, Quaternion.identity);
+        var proj = bombObj.GetComponent<RevealBomb>();
+
+        // IGNORUJ KOLÍZIU S HRÁČOM a Attack Hitboxom
+        var bombCol = bombObj.GetComponent<Collider2D>();
+        if (bombCol != null)
+        {
+            if (playerCollider != null)
+                Physics2D.IgnoreCollision(bombCol, playerCollider);
+
+            if (attackHitboxCollider != null)
+                Physics2D.IgnoreCollision(bombCol, attackHitboxCollider);
+        }
+
+        if (proj != null && Camera.main != null)
+        {
+            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouseWorld.z = spawnPos.z;
+
+            Vector2 dir = (mouseWorld - spawnPos);
+
+            // Ak je kurzor veľmi blízko hráča → default diagonálne dopredu
+            if (dir.sqrMagnitude < 0.5f)
+            {
+                dir = new Vector2(facingX, 0.8f);
+            }
+            else
+            {
+                // vždy chceme aspoň trochu hore
+                if (dir.y < 0.3f)
+                    dir.y = 0.3f;
+            }
+
+            proj.Throw(dir);
+        }
+
+        PlaySfx("playerHit");
+    }
+
     private void FaceMouse()
     {
         if (Camera.main == null) return;
@@ -497,6 +570,7 @@ public class PlayerController : MonoBehaviour
     {
         if (revealCircle == null || inventoryData == null) return;
         if (!inventoryData.UseRevealPotion()) return;
+        PlaySfx("reveal");
         if (fullRevealCo != null) StopCoroutine(fullRevealCo);
         StatsManager.Instance?.stats?.AddPotionUse("Reveal");
         fullRevealCo = StartCoroutine(FullRevealRoutine());
