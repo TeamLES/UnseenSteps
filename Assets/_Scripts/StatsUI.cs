@@ -13,6 +13,7 @@ public class StatsUI : MonoBehaviour
     public TMP_Text coinsText;
     public TMP_Text potionsText;
     public TMP_Text abilitiesText;
+    public TMP_Text revealBombText;
 
     GameStats S => stats ? stats : StatsManager.Instance ? StatsManager.Instance.stats : null;
 
@@ -35,8 +36,8 @@ public class StatsUI : MonoBehaviour
         if (coinsText)     coinsText.text     = "Coins collected: " + s.CoinsCollected.ToString();
         if (potionsText)   potionsText.text   = "Potions used: " + s.PotionsUsed.ToString();
         if (abilitiesText) abilitiesText.text = "Abilities used: " + s.AbilitiesUsed.ToString();
+        if (revealBombText) revealBombText.text = "Reveal bombs used: " + s.RevealBombs.ToString();
     }
-
 
     string FormatTime(float secs)
     {

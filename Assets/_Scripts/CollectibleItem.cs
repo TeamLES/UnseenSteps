@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CollectibleItem : MonoBehaviour
 {
-    public enum ItemType { HealPotion, RevealPotion, Coin, Key }
+    public enum ItemType { HealPotion, RevealPotion, Coin, Key, RevealBomb }
 
     [Header("Item Settings")]
     public ItemType itemType;
@@ -46,6 +46,7 @@ public class CollectibleItem : MonoBehaviour
             case ItemType.RevealPotion: inventoryData.AddRevealPotion(amount); PlaySfx("item"); break;
             case ItemType.Coin:         inventoryData.AddCoins(amount); PlaySfx("coin"); StatsManager.Instance?.stats?.AddCoins(1); break;
             case ItemType.Key:          inventoryData.AddKeys(amount); PlaySfx("item"); break;
+            case ItemType.RevealBomb:   inventoryData.AddRevealBomb(amount); PlaySfx("item"); break;
         }
 
         if (pickupEffectPrefab) Instantiate(pickupEffectPrefab, transform.position, Quaternion.identity);

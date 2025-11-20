@@ -31,6 +31,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5786032299241951369}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5895583503733209087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3562564493703112638}
+  m_Layer: 8
+  m_Name: BombSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3562564493703112638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5895583503733209087}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.198, y: -0.009, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5786032299241951369}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6084385610625274909
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,6 +101,7 @@ Transform:
   - {fileID: 8576129427060476385}
   - {fileID: 5272404962149366117}
   - {fileID: 5886425727583117553}
+  - {fileID: 3562564493703112638}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4271614514132748301
@@ -206,6 +238,7 @@ MonoBehaviour:
   speed: 8
   jumpForce: 15
   maxFallSpeed: -25
+  coyoteTime: 0.15
   staggerMoveMultiplier: 0
   attackMoveMultiplier: 0.4
   lockAttackDirection: 0
@@ -230,6 +263,9 @@ MonoBehaviour:
   stickTime: 1
   wallJumpCooldown: 0.3
   movementCheckDistance: 0.25
+  revealBombPrefab: {fileID: 3334035533087822945, guid: b4ebde923ee251a468f8368a1753dfc6, type: 3}
+  bombSpawnPoint: {fileID: 3562564493703112638}
+  bombThrowArcY: 2
   dragableLayer:
     serializedVersion: 2
     m_Bits: 0

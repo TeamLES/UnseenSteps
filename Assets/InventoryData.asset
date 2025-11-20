@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: InventoryData
   m_EditorClassIdentifier: 
   healPotions: 0
-  revealPotions: 0
+  revealPotions: 1
   coins: 0
-  keys: 12
+  keys: 0
