@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 688ab9aad92026442b57660cfb744e3f
+guid: 293ea8fead4e818498c5179844c75f08
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1479885432632770049
-    second: merchant_head_0
+      213: 4735798586985903840
+    second: textBarThick_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -96,40 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: merchant_head_0
+      name: textBarThick_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 9
-        width: 58
-        height: 46
+        x: 0
+        y: 0
+        width: 384
+        height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 10ef950d5fb998410800000000000000
-      internalID: 1479885432632770049
+      spriteID: 0e6771939bfe8b140800000000000000
+      internalID: 4735798586985903840
       vertices: []
       indices: 
       edges: []
@@ -138,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ea2e98ed0be07554fb62ea2f2a973036
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      merchant_head_0: 1479885432632770049
+      textBarThick_0: 4735798586985903840
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
