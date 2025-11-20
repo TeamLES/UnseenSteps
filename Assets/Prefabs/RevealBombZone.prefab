@@ -210,7 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segments: 80
   spriteMask: {fileID: 7986692172892229672}
-  maxRevealRadius: 100
+  maxRevealRadius: 300
   growTime: 0.4
   holdTime: 2.5
   fadeTime: 2
