@@ -16,6 +16,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [Header("Invulnerability")]
     public float invulnerabilityDuration = 2f;
     private bool isInvulnerable = false;
+    bool dashInvulnerable;
 
     void Start()
     {
@@ -30,6 +31,11 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         StartCoroutine(_TempInvulRt(seconds));
     }
 
+    public void SetDashInvulnerable(bool value)
+    {
+        dashInvulnerable = value;
+    }
+
     IEnumerator _TempInvulRt(float seconds)
     {
         isInvulnerable = true;
@@ -42,7 +48,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public void TakeDamage(int dmg, Vector2 attackerPosition)
     {
         if (PauseMenu.IsPaused) return;
-        if (health <= 0 || isInvulnerable) return;
+        if (health <= 0 || isInvulnerable || dashInvulnerable) return;
 
         if (AudioManager.Instance != null)
             AudioManager.Instance.PlaySFX("enemyHit");

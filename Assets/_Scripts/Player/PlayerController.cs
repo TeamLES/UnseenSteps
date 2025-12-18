@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
     public GameObject healEffectPrefab;
     public bool isStunned = false;
     public int damage = 1;
+    PlayerHealth playerHealth;
 
     [Header("Ground + Draggable")]
     [SerializeField] private LayerMask groundAndDragLayer;
@@ -105,7 +106,6 @@ public class PlayerController : MonoBehaviour
     [Header("Health Potion")]
     public KeyCode healthPotionKey = KeyCode.E;
     public int healAmount = 2;
-    private PlayerHealth playerHealth;
     public float healPotionCooldown = 3f;
     private float lastHealPotionTime = -Mathf.Infinity;
 
@@ -297,6 +297,7 @@ public class PlayerController : MonoBehaviour
     {
 
         isDashing = true;
+        playerHealth?.SetDashInvulnerable(true);
         lastDashTime = Time.time; // tu sa spust cooldown
         Instantiate(dashEffectPrefab, transform.position, Quaternion.identity);
         PlaySfx("dash");
@@ -308,6 +309,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashDuration);
 
         rb.gravityScale = originalGravity;
+        playerHealth?.SetDashInvulnerable(false);
         isDashing = false;
     }
 
@@ -658,3 +660,4 @@ public class PlayerController : MonoBehaviour
         StatsManager.Instance?.stats?.AddAbilityUse(id);
     }
 }
+

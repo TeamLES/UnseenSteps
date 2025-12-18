@@ -12,10 +12,23 @@ public class EnemyShooter : MonoBehaviour
     public GameObject projectilePrefab;
     public float attackCooldown = 1.5f;
 
+    [Header("Warning")]
+    public GameObject warningSprite;
+    public float warningDuration = 1f;
+    public float warningBlinkInterval = 0.15f;
+    public string warningSortingLayer = "Default";
+    public int warningSortingOrder = 50;
+    Coroutine warningRoutine;
+    SpriteRenderer warningRenderer;
+
+    [Header("Attack Timing")]
+    public float firstAttackDelay = 2f;
+    bool firstShotDone;
+
     private bool canAttack = true;
 
-    private EnemyHealth enemyHealth;  // stará sa o HP
-    private EnemyWalk enemyWalk;      // stará sa o pohyb + flip okraj/stena
+    private EnemyHealth enemyHealth;  // stara sa o HP
+    private EnemyWalk enemyWalk;      // stara sa o pohyb + flip okraj/stena
     private Rigidbody2D rb;
     private Animator animator;
     private Transform player;
@@ -35,13 +48,24 @@ public class EnemyShooter : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+
+        if (warningSprite != null)
+        {
+            warningRenderer = warningSprite.GetComponent<SpriteRenderer>();
+            if (warningRenderer != null)
+            {
+                warningRenderer.maskInteraction = SpriteMaskInteraction.None;
+                warningRenderer.sortingLayerName = warningSortingLayer;
+                warningRenderer.sortingOrder = warningSortingOrder;
+            }
+        }
     }
 
     void FixedUpdate()
     {
         if (player == null) { enemyWalk.enabled = true; return; }
 
-        // readyToShoot len ak chase beží a sme v sweet spote
+        // readyToShoot len ak chase beï¿½ï¿½ a sme v sweet spote
         bool readyToShoot = enemyWalk.enableChase
                             && enemyWalk.isChasing
                             && enemyWalk.isAtStopDistance
@@ -58,18 +82,18 @@ public class EnemyShooter : MonoBehaviour
         }
         else
         {
-            enemyWalk.enabled = true; // patrol/chase rieši motor
+            enemyWalk.enabled = true; // patrol/chase rieï¿½i motor
             animator.SetBool(EnemyShooterAnimationStrings.IsMoving, true);
         }
     }
 
-    /// <summary> Skontroluje, èi je hráè v detectionRange </summary>
+    /// <summary> Skontroluje, ï¿½i je hrï¿½ï¿½ v detectionRange </summary>
     bool PlayerInRange()
     {
         return Vector2.Distance(transform.position, player.position) <= detectionRange;
     }
 
-    /// <summary> Skontroluje, èi nie je medzi mnou a hráèom stena </summary>
+    /// <summary> Skontroluje, ï¿½i nie je medzi mnou a hrï¿½ï¿½om stena </summary>
     bool HasLineOfSight()
     {
         Vector2 origin = firePoint.position;
@@ -77,11 +101,11 @@ public class EnemyShooter : MonoBehaviour
         float distance = Vector2.Distance(origin, player.position);
 
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, enemyWalk.groundLayer);
-        // Ak nieèo zablokuje cestu -> hráè je za stenou
+        // Ak nieï¿½o zablokuje cestu -> hrï¿½ï¿½ je za stenou
         return hit.collider == null;
     }
 
-    /// <summary> Otoèíme sa smerom k hráèovi, ale len ak uplynul flipCooldown </summary>
+    /// <summary> Otoï¿½ï¿½me sa smerom k hrï¿½ï¿½ovi, ale len ak uplynul flipCooldown </summary>
     void LookAtPlayer()
     {
         float xDiff = player.position.x - transform.position.x;
@@ -112,9 +136,39 @@ public class EnemyShooter : MonoBehaviour
     {
         canAttack = false;
         animator.SetTrigger(EnemyShooterAnimationStrings.IsAttacking);
+        if (warningRoutine != null) StopCoroutine(warningRoutine);
+        warningRoutine = StartCoroutine(WarningFlash());
+        float delayBeforeShot = warningDuration;
+        if (!firstShotDone && firstAttackDelay > 0f)
+            delayBeforeShot = Mathf.Max(delayBeforeShot, firstAttackDelay);
+        if (delayBeforeShot > 0f)
+            yield return new WaitForSeconds(delayBeforeShot);
         ShootProjectile();
+        firstShotDone = true;
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
+    }
+
+    IEnumerator WarningFlash()
+    {
+        if (warningSprite == null) yield break;
+        float elapsed = 0f;
+        bool on = false;
+        if (warningRenderer != null)
+        {
+            warningRenderer.maskInteraction = SpriteMaskInteraction.None;
+            warningRenderer.sortingLayerName = warningSortingLayer;
+            warningRenderer.sortingOrder = warningSortingOrder;
+        }
+        while (elapsed < warningDuration)
+        {
+            on = !on;
+            warningSprite.SetActive(on);
+            yield return new WaitForSeconds(warningBlinkInterval);
+            elapsed += warningBlinkInterval;
+        }
+        warningSprite.SetActive(false);
+        warningRoutine = null;
     }
 
     void ShootProjectile()
@@ -132,16 +186,16 @@ public class EnemyShooter : MonoBehaviour
         float minY = Mathf.Sin(minElevationAngle * Mathf.Deg2Rad);
         if (dir.y < minY) dir = new Vector2(dir.x, minY).normalized;
 
-        rbBullet.linearVelocity = dir * 10f;
+        rbBullet.linearVelocity = dir * 6f;
     }
 
     void OnDrawGizmosSelected()
     {
-        // Èervená gulièka okolo nepriate¾a naznaèujúca detectionRange
+        // ï¿½ervenï¿½ guliï¿½ka okolo nepriateï¿½a naznaï¿½ujï¿½ca detectionRange
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
-        // Keï je vybratý firePoint, nakreslíme èiaru smerom k hráèovi
+        // Keï¿½ je vybratï¿½ firePoint, nakreslï¿½me ï¿½iaru smerom k hrï¿½ï¿½ovi
         if (firePoint != null && player != null)
         {
             Gizmos.color = Color.cyan;

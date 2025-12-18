@@ -14,6 +14,8 @@ public class AudioManager : MonoBehaviour
     public NamedClip[] musics; // napr. "MainMenu", "Level1Music"
     public NamedClip[] sfx;    // napr. "ButtonClick", "CoinPickup", "Jump", "SwordSlash"
 
+    bool nextPlayerHitHigh;
+
     void Awake()
     {
         if (Instance != null) { Destroy(gameObject); return; }
@@ -55,10 +57,24 @@ public class AudioManager : MonoBehaviour
     {
         var s = sfx.FirstOrDefault(x => x.name == name);
         if (s?.clip == null) return;
-        sfxSource.PlayOneShot(s.clip, s.volume);
+        var volume = s.volume;
+        if (name == "coin") volume *= 0.5f;
+        float originalPitch = sfxSource.pitch;
+        float originalPan = sfxSource.panStereo;
+        if (name == "playerHit")
+        {
+            bool high = nextPlayerHitHigh;
+            nextPlayerHitHigh = !nextPlayerHitHigh;
+            sfxSource.pitch = high ? UnityEngine.Random.Range(1.4f, 1.7f) : UnityEngine.Random.Range(0.3f, 0.5f);
+            volume *= UnityEngine.Random.Range(0.4f, 1.25f);
+            sfxSource.panStereo = UnityEngine.Random.Range(-0.35f, 0.35f);
+        }
+        sfxSource.PlayOneShot(s.clip, volume);
+        sfxSource.pitch = originalPitch;
+        sfxSource.panStereo = originalPan;
     }
 
-    // ---- Helper pre získanie klipu + hlasitosti (na lokálne prehrávanie) ----
+    // ---- Helper pre ziskanie klipu + hlasitosti (na lokalne prehravanie) ----
     public bool TryGetSFXClip(string name, out AudioClip clip, out float volume)
     {
         var s = sfx.FirstOrDefault(x => x.name == name);
