@@ -106,7 +106,7 @@ public class InventoryData : ScriptableObject
     {
         healPotions = 0;
         revealPotions = 0;
-        revealBombs = 0;   // <-- nezabudni
+        revealBombs = 0;
         coins = 0;
         keys = 0;
         RaiseChanged();

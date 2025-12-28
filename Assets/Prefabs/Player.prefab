@@ -62,6 +62,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5786032299241951369}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5911522888426962986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6131823100724162020}
+  m_Layer: 8
+  m_Name: ProbeSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6131823100724162020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5911522888426962986}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.257, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5786032299241951369}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6084385610625274909
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +133,7 @@ Transform:
   - {fileID: 5272404962149366117}
   - {fileID: 5886425727583117553}
   - {fileID: 3562564493703112638}
+  - {fileID: 6131823100724162020}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4271614514132748301
@@ -266,6 +298,10 @@ MonoBehaviour:
   revealBombPrefab: {fileID: 3334035533087822945, guid: b4ebde923ee251a468f8368a1753dfc6, type: 3}
   bombSpawnPoint: {fileID: 3562564493703112638}
   bombThrowArcY: 2
+  coinProbeKey: 116
+  coinProbe: {fileID: 0}
+  probeAtMouseX: 1
+  probeMouseMaxXOffset: 6
   dragableLayer:
     serializedVersion: 2
     m_Bits: 0

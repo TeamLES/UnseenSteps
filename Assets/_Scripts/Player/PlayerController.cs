@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     public float dashSpeed = 25f;
     public float dashDuration = 0.2f;
     bool isDashing;
+
     [Header("Dash Cooldown")]
     public float dashCooldown = 4f;
     private float lastDashTime = -Mathf.Infinity;
@@ -66,6 +67,12 @@ public class PlayerController : MonoBehaviour
     public float bombThrowArcY = 1.5f;    // mierne nahor
     private CapsuleCollider2D playerCollider;
     private Collider2D attackHitboxCollider;
+
+    [Header("Coin Probe")]
+    public KeyCode coinProbeKey = KeyCode.T;
+    public ProbeCoinSetup probeCoinSetup;          
+    public bool probeAtMouseX = true;       // true = sonda pod kurzorom (x), false = pod hráčom
+    public float probeMouseMaxXOffset = 6f; // limit ako ďaleko od hráča môžeš sondovať do strán
 
     [Header("Dragging")]
     [Tooltip("Layers containing dragable objects")]
@@ -146,6 +153,12 @@ public class PlayerController : MonoBehaviour
                 UseHealthPotion();
             }
         }
+
+        if (Input.GetKeyDown(coinProbeKey))
+        {
+            TryUseCoinProbe();
+        }
+
         horizontal = Input.GetAxisRaw("Horizontal");
         if (isGrounded) coyoteCounter = coyoteTime;
         else coyoteCounter = Mathf.Max(0f, coyoteCounter - Time.deltaTime);
@@ -658,6 +671,29 @@ public class PlayerController : MonoBehaviour
     private void AddAbilityUse(string id)
     {
         StatsManager.Instance?.stats?.AddAbilityUse(id);
+    }
+
+    private void TryUseCoinProbe()
+    {
+        if (probeCoinSetup == null) return;
+        if (inventoryData == null) return;
+        if (DialogueManager.GetInstance().dialogueIsPlaying) return;
+
+        Debug.Log("COIN PROBE: pressed T, trying to drop");
+        // stojí 1 coin
+        if (inventoryData.coins <= 0) return;
+        if (!inventoryData.SpendCoins(1)) return;
+
+        Vector2 origin = transform.position;
+
+        if (probeAtMouseX && Camera.main != null)
+        {
+            Vector3 mw = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            float dx = Mathf.Clamp(mw.x - transform.position.x, -probeMouseMaxXOffset, probeMouseMaxXOffset);
+            origin = new Vector2(transform.position.x + dx, transform.position.y);
+        }
+
+        probeCoinSetup.Drop(origin);
     }
 }
 
