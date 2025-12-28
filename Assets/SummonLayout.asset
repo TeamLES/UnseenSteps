@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b68bcceb80244e7ab96ddf36aaf1234d, type: 3}
+  m_Name: SummonLayout
+  m_EditorClassIdentifier: 
+  attackType: 0
+  startDelay: 0
+  spacingDelay: 0.1
+  waveDelay: 0
+  entries:
+  - localPosition: {x: 5.59891, y: 2.8010008}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  - localPosition: {x: 0.43865168, y: 2.8010008}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  - localPosition: {x: -4.721607, y: 2.8010008}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  - localPosition: {x: 3.0187807, y: 2.8010008}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  - localPosition: {x: -2.1414776, y: 2.8010008}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  gridColumns: 5
+  gridRows: 3
+  gridUseArenaBounds: 1
+  gridCellSize: 1
+  gridOrigin: {x: 0, y: 0}
+  gridDefaultDelay: 0
+  gridCells:
+  - column: 0
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0
+  - column: 2
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0
+  - column: 4
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0
+  - column: 1
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0
+  - column: 3
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0

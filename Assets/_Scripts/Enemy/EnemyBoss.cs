@@ -27,19 +27,7 @@ public class EnemyBoss : MonoBehaviour
     [Tooltip("Koľko môže boss/hráč \"trčať\" mimo obraz a stále to berieme ako viditeľné")]
     [Range(0f, 0.5f)] public float viewportMargin = 0.05f;
 
-    [Header("Rock Barrage")]
-    public bool enableRockBarrage = true;
-    public int attacksBeforeSummon = 2;
-    public float summonPauseDuration = 2f;
-    public GameObject rockPrefab;
-    public Transform rockSpawnCenter;
-    public int rocksPerWave = 5;
-    public int rockWaveCount = 2;
-    public float rockSpacing = 1.5f;
-    public float rockSpawnHeight = 6f;
-    public float timeBetweenRocks = 0.15f;
-    public float timeBetweenWaves = 1.2f;
-    public string summonTrigger = "";
+    [Header("Summon Layout")] public SummonLayoutSpawner summonSpawner;
 
     private Transform player;
     private Animator animator;
@@ -49,8 +37,6 @@ public class EnemyBoss : MonoBehaviour
     private BoxCollider2D box;
     private bool canAttack = true;
     private bool healthBarVisible;
-    private bool isSummoning;
-    private int attacksSinceSummon;
 
     void Start()
     {
@@ -82,7 +68,7 @@ public class EnemyBoss : MonoBehaviour
     void FixedUpdate()
     {
         if (health != null && health.IsDead) { rb.linearVelocity = Vector2.zero; return; }
-        if (isSummoning)
+        if (summonSpawner != null && summonSpawner.IsSummoning)
         {
             enemyWalk.enabled = false;
             rb.linearVelocity = Vector2.zero;
@@ -171,52 +157,9 @@ public class EnemyBoss : MonoBehaviour
         AudioManager.Instance?.PlaySFX("bossSwing");
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
-        attacksSinceSummon++;
-        if (enableRockBarrage && !isSummoning && attacksSinceSummon >= attacksBeforeSummon)
+        if (summonSpawner != null)
         {
-            StartCoroutine(SummonRocksRoutine());
-        }
-    }
-
-    IEnumerator SummonRocksRoutine()
-    {
-        isSummoning = true;
-        canAttack = false;
-        enemyWalk.enabled = false;
-        rb.linearVelocity = Vector2.zero;
-        animator.SetBool("IsMoving", false);
-        if (!string.IsNullOrEmpty(summonTrigger)) animator.SetTrigger(summonTrigger);
-        yield return new WaitForSeconds(summonPauseDuration);
-        attacksSinceSummon = 0;
-        enemyWalk.enabled = true;
-        canAttack = true;
-        StartCoroutine(SpawnRockWaves());
-        isSummoning = false;
-    }
-
-    IEnumerator SpawnRockWaves()
-    {
-        if (!enableRockBarrage || rockPrefab == null) yield break;
-        Transform center = rockSpawnCenter != null ? rockSpawnCenter : transform;
-        for (int wave = 0; wave < rockWaveCount; wave++)
-        {
-            yield return StartCoroutine(SpawnSingleWave(center));
-            if (wave < rockWaveCount - 1)
-                yield return new WaitForSeconds(timeBetweenWaves);
-        }
-    }
-
-    IEnumerator SpawnSingleWave(Transform center)
-    {
-        float half = (rocksPerWave - 1) * 0.5f;
-        for (int i = 0; i < rocksPerWave; i++)
-        {
-            Vector3 pos = center.position;
-            pos.y += rockSpawnHeight;
-            pos.x += (i - half) * rockSpacing;
-            Instantiate(rockPrefab, pos, Quaternion.identity);
-            if (i < rocksPerWave - 1)
-                yield return new WaitForSeconds(timeBetweenRocks);
+            yield return StartCoroutine(summonSpawner.OnAttackResolved());
         }
     }
 
