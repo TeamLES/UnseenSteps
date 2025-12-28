@@ -452,6 +452,18 @@ MonoBehaviour:
   wallCheckDistance: 0.2
   showHealthBarWhenVisible: 1
   viewportMargin: 0.05
+  enableRockBarrage: 1
+  attacksBeforeSummon: 2
+  summonPauseDuration: 2
+  rockPrefab: {fileID: 0}
+  rockSpawnCenter: {fileID: 0}
+  rocksPerWave: 5
+  rockWaveCount: 2
+  rockSpacing: 1.5
+  rockSpawnHeight: 6
+  timeBetweenRocks: 0.15
+  timeBetweenWaves: 1.2
+  summonTrigger: 
 --- !u!1 &6393781478356868875
 GameObject:
   m_ObjectHideFlags: 0
