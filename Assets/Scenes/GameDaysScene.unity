@@ -5862,7 +5862,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &186947077
 Transform:
   m_ObjectHideFlags: 0
@@ -8864,9 +8864,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 896618119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 240, y: -260.13}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 324.228, y: 359.111}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &259520644
@@ -9085,7 +9085,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 906123945825223855, guid: bdc5503ec91934141b131e65227c1112, type: 3}
       propertyPath: m_MaskInteraction
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2624968645236516916, guid: bdc5503ec91934141b131e65227c1112, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13222,7 +13222,7 @@ RectTransform:
   m_Father: {fileID: 1939262741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14805,7 +14805,7 @@ RectTransform:
   m_Father: {fileID: 1185804167}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -38214,7 +38214,7 @@ GameObject:
   - component: {fileID: 1114023639}
   - component: {fileID: 1114023638}
   m_Layer: 0
-  m_Name: Square
+  m_Name: ArenaBorders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -15,21 +15,46 @@ MonoBehaviour:
   attackType: 0
   startDelay: 0
   spacingDelay: 0.1
-  waveDelay: 0
+  waveDelay: 2
+  waveCount: 3
   entries:
-  - localPosition: {x: 5.59891, y: 2.8010008}
+  - localPosition: {x: 0, y: 2}
     delay: 0
     prefabOverride: {fileID: 0}
-  - localPosition: {x: 0.43865168, y: 2.8010008}
+  - localPosition: {x: 2, y: 2}
     delay: 0
     prefabOverride: {fileID: 0}
-  - localPosition: {x: -4.721607, y: 2.8010008}
+  - localPosition: {x: 4, y: 2}
     delay: 0
     prefabOverride: {fileID: 0}
-  - localPosition: {x: 3.0187807, y: 2.8010008}
+  - localPosition: {x: 5, y: 2}
     delay: 0
     prefabOverride: {fileID: 0}
-  - localPosition: {x: -2.1414776, y: 2.8010008}
+  - localPosition: {x: 6, y: 2}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  - localPosition: {x: 7, y: 2}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  - localPosition: {x: 8, y: 2}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  - localPosition: {x: 9, y: 2}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  - localPosition: {x: 10, y: 2}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  - localPosition: {x: 11, y: 2}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  - localPosition: {x: 12, y: 2}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  - localPosition: {x: 14, y: 2}
+    delay: 0
+    prefabOverride: {fileID: 0}
+  - localPosition: {x: 13, y: 2}
     delay: 0
     prefabOverride: {fileID: 0}
   gridColumns: 5
@@ -51,11 +76,43 @@ MonoBehaviour:
     row: 2
     prefab: {fileID: 0}
     delay: 0
-  - column: 1
+  - column: 5
     row: 2
     prefab: {fileID: 0}
     delay: 0
-  - column: 3
+  - column: 6
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0
+  - column: 7
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0
+  - column: 8
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0
+  - column: 9
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0
+  - column: 10
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0
+  - column: 11
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0
+  - column: 12
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0
+  - column: 14
+    row: 2
+    prefab: {fileID: 0}
+    delay: 0
+  - column: 13
     row: 2
     prefab: {fileID: 0}
     delay: 0
