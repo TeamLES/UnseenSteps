@@ -19751,10 +19751,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db2110f728dcc9240bc5892b862e7504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxLifetime: 3
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  maxLifetime: 3
   revealZonePrefab: {fileID: 558792868}
   revealRadius: 300
   revealHoldTime: 0.8
@@ -310000,7 +310000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5002988662888135737, guid: 91ad14db037f62f408884b768ca70cf5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9066119615489840166, guid: 91ad14db037f62f408884b768ca70cf5, type: 3}
       propertyPath: m_LocalPosition.x
