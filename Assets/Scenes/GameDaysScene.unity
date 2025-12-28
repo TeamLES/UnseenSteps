@@ -2903,7 +2903,7 @@ GameObject:
   m_Component:
   - component: {fileID: 73763785}
   m_Layer: 0
-  m_Name: PointA (1)
+  m_Name: PointA - 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17206,7 +17206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 545475433}
   m_Layer: 0
-  m_Name: PointB (2)
+  m_Name: PointB - 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21238,7 +21238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 678072874}
   m_Layer: 0
-  m_Name: PointB (1)
+  m_Name: PointB - 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43418,7 +43418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1316836244}
   m_Layer: 0
-  m_Name: PointA
+  m_Name: PointA - 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297702,10 +297702,10 @@ Transform:
   - {fileID: 237229156}
   - {fileID: 1648875745}
   - {fileID: 1316836244}
-  - {fileID: 73763785}
-  - {fileID: 2106519790}
   - {fileID: 2139468722}
   - {fileID: 545475433}
+  - {fileID: 2106519790}
+  - {fileID: 73763785}
   - {fileID: 678072874}
   - {fileID: 1957963680}
   - {fileID: 1831665214}
@@ -298433,7 +298433,6 @@ Transform:
   - {fileID: 1464421386}
   - {fileID: 2075523106}
   - {fileID: 331550778}
-  - {fileID: 1143635432}
   - {fileID: 323244403}
   - {fileID: 1941060281}
   - {fileID: 1025782749}
@@ -298456,6 +298455,7 @@ Transform:
   - {fileID: 758383420}
   - {fileID: 1583823038}
   - {fileID: 391978859}
+  - {fileID: 1143635432}
   - {fileID: 1181306371}
   - {fileID: 816479880}
   - {fileID: 308061036}
@@ -300903,7 +300903,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1831665214}
   m_Layer: 0
-  m_Name: Point B
+  m_Name: PointB - 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -304562,7 +304562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1957963680}
   m_Layer: 0
-  m_Name: Point A
+  m_Name: PointA - 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308959,7 +308959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2106519790}
   m_Layer: 0
-  m_Name: PointA (2)
+  m_Name: PointA - 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -309748,7 +309748,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2139468722}
   m_Layer: 0
-  m_Name: PointB
+  m_Name: PointB - 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310342,6 +310342,7 @@ SceneRoots:
   - {fileID: 1726652010}
   - {fileID: 727312934}
   - {fileID: 1603015796}
+  - {fileID: 4730428204028733908}
   - {fileID: 912108642}
   - {fileID: 1362892752}
   - {fileID: 307220107}
@@ -310349,4 +310350,3 @@ SceneRoots:
   - {fileID: 626492581}
   - {fileID: 803070397}
   - {fileID: 1082203356}
-  - {fileID: 4730428204028733908}

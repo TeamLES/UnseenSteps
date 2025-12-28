@@ -106,6 +106,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   speed: 2
+  waitTime: 1.5
 --- !u!61 &6630971479275621570
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ MonoBehaviour:
   potionsUsed: 0
   abilitiesUsed: 0
   timePlayedSeconds: 0
+  revealBombsUsed: 0
   perEnemyList: []
   perPotionList: []
   perAbilityList: []

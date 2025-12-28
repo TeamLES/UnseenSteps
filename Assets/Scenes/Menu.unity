@@ -3793,7 +3793,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1293.3826, y: 612.00476}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1028983885
@@ -3815,6 +3815,7 @@ MonoBehaviour:
   coinsText: {fileID: 1136755410}
   potionsText: {fileID: 388974812}
   abilitiesText: {fileID: 1080189260}
+  revealBombText: {fileID: 0}
 --- !u!114 &1028983886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6438,7 +6439,7 @@ MonoBehaviour:
     volume: 1
   - name: coin
     clip: {fileID: 8300000, guid: 072bfe62b8113ab4a822994146a36aa3, type: 3}
-    volume: 1
+    volume: 0.5
   - name: item
     clip: {fileID: 8300000, guid: af0c46a5357ea4d4cab9312fa7c0dda0, type: 3}
     volume: 1

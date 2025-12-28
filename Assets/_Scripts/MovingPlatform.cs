@@ -1,30 +1,47 @@
-using UnityEngine;
+ï»¿using UnityEngine;
+using System.Collections;
 
 public class MovingPlatform : MonoBehaviour
 {
     [Header("Path Settings")]
     public Transform[] points;
     public float speed = 2f;
+    public float waitTime = 2f;
+
     private int currentPointIndex = 0;
+    private bool isWaiting = false;
 
     void Update()
     {
-        if (points.Length == 0) return;
+        if (points.Length == 0 || isWaiting) return;
 
         Transform target = points[currentPointIndex];
-        transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            target.position,
+            speed * Time.deltaTime
+        );
 
         if (Vector2.Distance(transform.position, target.position) < 0.05f)
         {
-            currentPointIndex = (currentPointIndex + 1) % points.Length;
+            StartCoroutine(WaitAndMoveNext());
         }
+    }
+
+    IEnumerator WaitAndMoveNext()
+    {
+        isWaiting = true;
+        yield return new WaitForSeconds(waitTime);
+
+        currentPointIndex = (currentPointIndex + 1) % points.Length;
+        isWaiting = false;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Player"))
         {
-            collision.collider.transform.SetParent(transform); // hráè sa prilepí
+            collision.collider.transform.SetParent(transform);
         }
     }
 
@@ -32,7 +49,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            collision.collider.transform.SetParent(null); // hráè sa odlepí
+            collision.collider.transform.SetParent(null);
         }
     }
 
