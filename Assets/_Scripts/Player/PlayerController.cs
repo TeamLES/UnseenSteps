@@ -693,7 +693,7 @@ public class PlayerController : MonoBehaviour
             origin = new Vector2(transform.position.x + dx, transform.position.y);
         }
 
-        probeCoinSetup.Drop(origin);
+        probeCoinSetup.Drop(origin, transform);
     }
 }
 

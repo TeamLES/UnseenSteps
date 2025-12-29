@@ -304522,11 +304522,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5786032299241951369, guid: 85f10cd069e41464f8ae4a5593c345f1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.22
+      value: -111.96
       objectReference: {fileID: 0}
     - target: {fileID: 5786032299241951369, guid: 85f10cd069e41464f8ae4a5593c345f1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.12
+      value: 1.62
       objectReference: {fileID: 0}
     - target: {fileID: 5786032299241951369, guid: 85f10cd069e41464f8ae4a5593c345f1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -310404,6 +310404,22 @@ PrefabInstance:
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 1944788964}
+    - target: {fileID: 917499790993735320, guid: ad8d8a5cf02647743b0b16cf896c6356, type: 3}
+      propertyPath: throwForceX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 917499790993735320, guid: ad8d8a5cf02647743b0b16cf896c6356, type: 3}
+      propertyPath: throwForceY
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 917499790993735320, guid: ad8d8a5cf02647743b0b16cf896c6356, type: 3}
+      propertyPath: upwardOffset
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 917499790993735320, guid: ad8d8a5cf02647743b0b16cf896c6356, type: 3}
+      propertyPath: forwardOffset
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 917499790993735320, guid: ad8d8a5cf02647743b0b16cf896c6356, type: 3}
       propertyPath: coinProbePrefab
       value: 

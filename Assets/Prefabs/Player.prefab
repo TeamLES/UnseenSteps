@@ -87,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 5911522888426962986}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.257, z: 0}
+  m_LocalPosition: {x: 0.206, y: 0.016, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -299,7 +299,7 @@ MonoBehaviour:
   bombSpawnPoint: {fileID: 3562564493703112638}
   bombThrowArcY: 2
   coinProbeKey: 116
-  coinProbe: {fileID: 0}
+  probeCoinSetup: {fileID: 0}
   probeAtMouseX: 1
   probeMouseMaxXOffset: 6
   dragableLayer:

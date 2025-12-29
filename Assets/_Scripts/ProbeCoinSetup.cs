@@ -3,22 +3,43 @@ using UnityEngine;
 public class ProbeCoinSetup : MonoBehaviour
 {
     [Header("Spawn")]
-    public GameObject coinProbePrefab;     // prefab, ktor˝ m· na sebe ProbeCoin script
-    public Transform spawnPoint;           // napr. z ruky / pod hr·Ëom
-    public float initialDownSpeed = 0f;    // 0 = nech to rieöi gravity
+    public GameObject coinProbePrefab;
+    public Transform spawnPoint;
 
-    public void Drop(Vector2 worldOrigin)
+    [Header("Throw (arc)")]
+    public float forwardOffset = 0.35f;   // kde sa coin objavÌ pred hr·Ëom
+    public float upwardOffset = 0.15f;
+    public float throwForceX = 4.5f;      // r˝chlosù dopredu
+    public float throwForceY = 3.5f;      // r˝chlosù hore
+    public bool useMouseXAsDirection = false; // ak chceö hodiù smerom ku kurzoru (iba X)
+
+    public void Drop(Vector2 fallbackWorldOrigin, Transform playerTransform = null)
     {
         if (!coinProbePrefab) return;
 
-        Vector3 pos = spawnPoint ? spawnPoint.position : (Vector3)worldOrigin;
+        // zober smer (default: podæa scale.x ako u teba v PlayerController)
+        int dir = 1;
+        if (playerTransform != null)
+            dir = playerTransform.localScale.x >= 0 ? 1 : -1;
 
-        var coin = Instantiate(coinProbePrefab, pos, Quaternion.identity);
-        coin.SetActive(true); // keÔûe tvoj prefab je uloûen˝ disabled
+        if (useMouseXAsDirection && Camera.main != null && playerTransform != null)
+        {
+            float mx = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+            dir = (mx >= playerTransform.position.x) ? 1 : -1;
+        }
 
-        // voliteæne mu daj ötartovaciu r˝chlosù dole
+        Vector3 basePos = spawnPoint ? spawnPoint.position : (Vector3)fallbackWorldOrigin;
+        Vector3 spawnPos = basePos + new Vector3(forwardOffset * dir, upwardOffset, 0f);
+
+        var coin = Instantiate(coinProbePrefab, spawnPos, Quaternion.identity);
+        coin.SetActive(true);
+
+        // hod obl˙Ëikom
         var rb = coin.GetComponent<Rigidbody2D>();
-        if (rb != null && initialDownSpeed != 0f)
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -Mathf.Abs(initialDownSpeed));
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.AddForce(new Vector2(throwForceX * dir, throwForceY), ForceMode2D.Impulse);
+        }
     }
 }
