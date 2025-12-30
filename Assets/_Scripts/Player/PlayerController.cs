@@ -135,10 +135,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (PauseMenu.IsPaused) return;  
+        if (PauseMenu.IsPaused) return;
 
         if (Input.GetKeyDown(revealPotionKey))
         {
+            if (RevealCursorController.Instance != null &&
+                !RevealCursorController.Instance.IsCursorRevealEnabled)
+                return;
+
             if (revealActivated == false && Time.time - lastRevealPotionTime >= revealPotionCooldown)
             {
                 UseRevealPotion();

@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8862877755420464132}
   - component: {fileID: 3727714951573721950}
-  - component: {fileID: 624799305723474637}
   - component: {fileID: 7873780442088936214}
+  - component: {fileID: 624799305723474637}
+  - component: {fileID: 5554762886404260497}
   m_Layer: 0
   m_Name: CursorRevealCircle
   m_TagString: Untagged
@@ -141,23 +142,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &624799305723474637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3089001214267460597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ec58a31665814b4987b6a37cb570a93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  segments: 100
-  followSpeed: 10
-  defaultSensitivity: 1
-  spriteMask: {fileID: 0}
-  revealRadius: 200
 --- !u!331 &7873780442088936214
 SpriteMask:
   m_ObjectHideFlags: 0
@@ -213,3 +197,33 @@ SpriteMask:
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
   m_MaskSource: 0
+--- !u!114 &624799305723474637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089001214267460597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec58a31665814b4987b6a37cb570a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  segments: 100
+  followSpeed: 10
+  defaultSensitivity: 1
+  spriteMask: {fileID: 0}
+  revealRadius: 200
+--- !u!114 &5554762886404260497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089001214267460597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bdc60a806146674a81749c9725f0ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  revealCursorRoot: {fileID: 3089001214267460597}
