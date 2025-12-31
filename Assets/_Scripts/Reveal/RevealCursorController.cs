@@ -28,6 +28,11 @@ public class RevealCursorController : MonoBehaviour
         if (!circleLine) circleLine = GetComponent<LineRenderer>();
     }
 
+    void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
+
     public void AddBlock(object key)
     {
         if (key == null) return;

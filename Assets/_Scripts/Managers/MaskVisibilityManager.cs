@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,13 +10,30 @@ using UnityEditor;
 [ExecuteAlways]
 public class MaskVisibilityManager : MonoBehaviour
 {
-    [Tooltip("Ak je zapnuté, objekty budú vidite¾né vo vnútri masky, inak budú ignorova masku.")]
+    [Header("Masked world (prepï¿½na sa podï¿½a Show)")]
+    [Tooltip("Ak je zapnutï¿½, objekty budï¿½ viditeï¿½nï¿½ vo vnï¿½tri masky, inak budï¿½ ignorovaï¿½ masku.")]
     public bool Show = true;
 
-    [Tooltip("Rodièovské objekty (alebo samostatné) ktorıch renderery sa majú prepnú.")]
+    [Tooltip("Rodiï¿½ovskï¿½ objekty (alebo samostatnï¿½) ktorï¿½ch Sprite/Tilemap renderery sa majï¿½ prepnï¿½ï¿½.")]
     public List<GameObject> targetObjects = new List<GameObject>();
 
-    // na detekciu zmeny v Editore (aby sme nemuseli uklada scénu)
+    [Header("Always visible (tooltipy, rï¿½mï¿½eky, texty...)")]
+    [Tooltip("Tieto objekty budï¿½ Vï¿½DY viditeï¿½nï¿½ (ignorujï¿½ masku) a dostanï¿½ vysokï¿½ sorting.")]
+    public List<GameObject> alwaysVisibleObjects = new List<GameObject>();
+
+    [Tooltip("Sorting layer pre always-visible veci (typicky Reveal_Cursor).")]
+    public string alwaysVisibleSortingLayer = "Reveal_Cursor";
+
+    [Tooltip("Order pre always-visible Sprite/Mesh renderery (nad void 1000).")]
+    public int alwaysVisibleOrder = 1700;
+
+    [Tooltip("Order pre always-visible LineRenderery (trochu vyï¿½ï¿½ie neï¿½ text).")]
+    public int alwaysVisibleLineOrder = 1750;
+
+    [Header("Auto-fix sorting layer pre world hidden")]
+    public bool forceDefaultSortingLayer = true;
+    public string defaultHiddenSortingLayer = "Reveal_Cursor";
+
     private bool _lastShow;
 
     void OnEnable()
@@ -26,7 +44,6 @@ public class MaskVisibilityManager : MonoBehaviour
 
     void OnValidate()
     {
-        // OnValidate sa volá pri zmene v Inspectore – zareaguj hneï
         UpdateVisibility(true);
     }
 
@@ -35,7 +52,6 @@ public class MaskVisibilityManager : MonoBehaviour
 #if UNITY_EDITOR
         if (!Application.isPlaying)
         {
-            // Keï sa prepne checkbox Show v Inspectore, zachytíme zmenu a refreshneme
             if (_lastShow != Show)
             {
                 _lastShow = Show;
@@ -44,59 +60,135 @@ public class MaskVisibilityManager : MonoBehaviour
             return;
         }
 #endif
-        // Runtime: je to lacné, môeme refreshova priebene
         UpdateVisibility();
     }
 
     public void UpdateVisibility(bool forceEditorRefresh = false)
     {
+        // 1) WORLD (maskovanï¿½)
         var mode = Show ? SpriteMaskInteraction.VisibleInsideMask : SpriteMaskInteraction.None;
 
         foreach (var root in targetObjects)
         {
             if (!root) continue;
 
-            // všetky SpriteRenderery v deoch (aj neaktívnych)
+            // SpriteRenderery
             var spriteRenderers = root.GetComponentsInChildren<SpriteRenderer>(true);
             for (int i = 0; i < spriteRenderers.Length; i++)
             {
                 var r = spriteRenderers[i];
-                if (r == null) continue;
+                if (!r) continue;
+
                 r.maskInteraction = mode;
 
+                if (Show && forceDefaultSortingLayer && r.sortingLayerName == "Default")
+                    r.sortingLayerName = defaultHiddenSortingLayer;
+
 #if UNITY_EDITOR
-                if (forceEditorRefresh)
-                    EditorUtility.SetDirty(r);
+                if (forceEditorRefresh) EditorUtility.SetDirty(r);
 #endif
             }
 
-            // všetky TilemapRenderery v deoch (aj neaktívnych)
+            // TilemapRenderery
             var tilemapRenderers = root.GetComponentsInChildren<TilemapRenderer>(true);
             for (int i = 0; i < tilemapRenderers.Length; i++)
             {
                 var r = tilemapRenderers[i];
-                if (r == null) continue;
+                if (!r) continue;
+
                 r.maskInteraction = mode;
 
+                if (Show && forceDefaultSortingLayer && r.sortingLayerName == "Default")
+                    r.sortingLayerName = defaultHiddenSortingLayer;
+
 #if UNITY_EDITOR
-                if (forceEditorRefresh)
-                    EditorUtility.SetDirty(r);
+                if (forceEditorRefresh) EditorUtility.SetDirty(r);
+#endif
+            }
+        }
+
+        // 2) ALWAYS VISIBLE (tooltipy: TMP + rï¿½mï¿½eky + pozadia)
+        foreach (var root in alwaysVisibleObjects)
+        {
+            if (!root) continue;
+
+            // SpriteRenderery (pozadia tooltipov, ikonky, atï¿½.)
+            var spriteRenderers = root.GetComponentsInChildren<SpriteRenderer>(true);
+            for (int i = 0; i < spriteRenderers.Length; i++)
+            {
+                var r = spriteRenderers[i];
+                if (!r) continue;
+
+                r.maskInteraction = SpriteMaskInteraction.None;
+                r.sortingLayerName = alwaysVisibleSortingLayer;
+                r.sortingOrder = alwaysVisibleOrder;
+
+#if UNITY_EDITOR
+                if (forceEditorRefresh) EditorUtility.SetDirty(r);
+#endif
+            }
+
+            // LineRenderery (ï¿½ltï¿½ rï¿½mï¿½eky/krï¿½ï¿½ky)
+            var lineRenderers = root.GetComponentsInChildren<LineRenderer>(true);
+            for (int i = 0; i < lineRenderers.Length; i++)
+            {
+                var lr = lineRenderers[i];
+                if (!lr) continue;
+
+                lr.maskInteraction = SpriteMaskInteraction.None;
+                lr.sortingLayerName = alwaysVisibleSortingLayer;
+                lr.sortingOrder = alwaysVisibleLineOrder;
+
+#if UNITY_EDITOR
+                if (forceEditorRefresh) EditorUtility.SetDirty(lr);
+#endif
+            }
+
+            // TextMeshPro world text (TMP_Text mï¿½ Renderer)
+            var tmps = root.GetComponentsInChildren<TMP_Text>(true);
+            for (int i = 0; i < tmps.Length; i++)
+            {
+                var t = tmps[i];
+                if (!t) continue;
+
+                var rend = t.GetComponent<Renderer>(); // MeshRenderer (world TMP) alebo CanvasRenderer (UGUI) -> renderer mï¿½ï¿½e byï¿½ null pri niektorï¿½ch UGUI
+                if (rend != null)
+                {
+                    rend.sortingLayerName = alwaysVisibleSortingLayer;
+                    rend.sortingOrder = alwaysVisibleOrder + 1; // nech je nad pozadï¿½m
+#if UNITY_EDITOR
+                    if (forceEditorRefresh) EditorUtility.SetDirty(rend);
+#endif
+                }
+
+#if UNITY_EDITOR
+                if (forceEditorRefresh) EditorUtility.SetDirty(t);
+#endif
+            }
+
+            // Canvas (ak by si mal world-space UI tooltips)
+            var canvases = root.GetComponentsInChildren<Canvas>(true);
+            for (int i = 0; i < canvases.Length; i++)
+            {
+                var c = canvases[i];
+                if (!c) continue;
+
+                c.overrideSorting = true;
+                c.sortingLayerName = alwaysVisibleSortingLayer;
+                c.sortingOrder = alwaysVisibleOrder;
+
+#if UNITY_EDITOR
+                if (forceEditorRefresh) EditorUtility.SetDirty(c);
 #endif
             }
         }
 
 #if UNITY_EDITOR
         if (forceEditorRefresh)
-        {
-            // nech sa hneï prekreslí SceneView/GameView
             SceneView.RepaintAll();
-            // volite¾né: oznaè scénu ako „dirty“, aby Unity spo¾ahlivo serialize-ol zmeny bez Ctrl+S
-            // EditorSceneManager.MarkSceneDirty(gameObject.scene);
-        }
 #endif
     }
 
-    // pravı klik na komponent -> Refresh Visibility Now
     [ContextMenu("Refresh Visibility Now")]
     public void RefreshNow()
     {

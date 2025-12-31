@@ -160,6 +160,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(coinProbeKey))
         {
+            if (RevealCursorController.Instance != null &&
+               !RevealCursorController.Instance.IsCursorRevealEnabled)
+                return;
+
             TryUseCoinProbe();
         }
 
@@ -238,7 +242,12 @@ public class PlayerController : MonoBehaviour
             // najprv skús drag
             bool startedDrag = TryStartDrag();
 
+
             // ak nič nenašlo, skús hodiť bombu
+            if (RevealCursorController.Instance != null &&
+               !RevealCursorController.Instance.IsCursorRevealEnabled)
+                return;
+
             if (!startedDrag)
                 TryThrowRevealBomb();
         }

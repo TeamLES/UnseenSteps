@@ -42,11 +42,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: FOG
-    uniqueID: 1081807763
-    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Reveal_LampOnly
+    uniqueID: 58956935
+    locked: 0
+  - name: Reveal_Cursor
+    uniqueID: 1905987741
     locked: 0
   m_RenderingLayers:
   - Default

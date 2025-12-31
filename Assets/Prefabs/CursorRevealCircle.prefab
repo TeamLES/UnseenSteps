@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7873780442088936214}
   - component: {fileID: 624799305723474637}
   - component: {fileID: 5554762886404260497}
+  - component: {fileID: 2874103175241517708}
   m_Layer: 0
   m_Name: CursorRevealCircle
   m_TagString: Untagged
@@ -59,7 +60,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7abb8da1a2feb384c9339ca9fd0c87f0, type: 2}
+  - {fileID: 2100000, guid: 3ecc4c2689f139b4792b0514a6c7e150, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,9 +78,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 99
+  m_SortingLayerID: 1905987741
+  m_SortingLayer: 2
+  m_SortingOrder: 10
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -188,13 +189,13 @@ SpriteMask:
   m_SortingOrder: 0
   m_Sprite: {fileID: -6231044458718751821, guid: 77d3d2f2951632c45bc02ffac214f121, type: 3}
   m_MaskAlphaCutoff: 0.2
-  m_FrontSortingLayerID: 0
-  m_BackSortingLayerID: 0
-  m_FrontSortingLayer: 0
-  m_BackSortingLayer: 0
-  m_FrontSortingOrder: 0
-  m_BackSortingOrder: 0
-  m_IsCustomRangeActive: 0
+  m_FrontSortingLayerID: 1905987741
+  m_BackSortingLayerID: 1905987741
+  m_FrontSortingLayer: 2
+  m_BackSortingLayer: 2
+  m_FrontSortingOrder: 2000
+  m_BackSortingOrder: -1000
+  m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
 --- !u!114 &624799305723474637
@@ -226,4 +227,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bdc60a806146674a81749c9725f0ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  revealCursorRoot: {fileID: 3089001214267460597}
+  cursorCircle: {fileID: 0}
+  revealMask: {fileID: 0}
+  circleLine: {fileID: 0}
+  disableCursorCircleScriptInZone: 1
+--- !u!114 &2874103175241517708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089001214267460597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6847e0d8c036ce442aec68149092a200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preset: 0
+  backOrder: -1000
+  frontOrder: 2000
