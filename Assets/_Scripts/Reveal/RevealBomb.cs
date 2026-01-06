@@ -40,6 +40,13 @@ public class RevealBomb : MonoBehaviour
     {
         if (!revealZonePrefab) return;
 
-        var zoneObj = Instantiate(revealZonePrefab, position, Quaternion.identity);
+        // poistka na Z (2D)
+        var pos3 = new Vector3(position.x, position.y, 0f);
+
+        var zoneObj = Instantiate(revealZonePrefab, pos3, Quaternion.identity);
+
+        // ak bol prefab omylom uložený ako inactive, klon bude tiež inactive
+        if (!zoneObj.activeSelf)
+            zoneObj.SetActive(true);
     }
 }

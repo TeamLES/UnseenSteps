@@ -12,13 +12,14 @@ GameObject:
   - component: {fileID: 8485315719485974690}
   - component: {fileID: 7986692172892229672}
   - component: {fileID: 4699138654924910791}
+  - component: {fileID: 6919362964847992484}
   m_Layer: 0
   m_Name: RevealBombZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3754059850941216427
 Transform:
   m_ObjectHideFlags: 0
@@ -76,9 +77,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 99
+  m_SortingLayerID: 1905987741
+  m_SortingLayer: 2
+  m_SortingOrder: 10
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -187,13 +188,13 @@ SpriteMask:
   m_SortingOrder: 0
   m_Sprite: {fileID: -6231044458718751821, guid: 77d3d2f2951632c45bc02ffac214f121, type: 3}
   m_MaskAlphaCutoff: 0.2
-  m_FrontSortingLayerID: 0
-  m_BackSortingLayerID: 0
-  m_FrontSortingLayer: 0
-  m_BackSortingLayer: 0
-  m_FrontSortingOrder: 0
-  m_BackSortingOrder: 0
-  m_IsCustomRangeActive: 0
+  m_FrontSortingLayerID: 1905987741
+  m_BackSortingLayerID: 1905987741
+  m_FrontSortingLayer: 2
+  m_BackSortingLayer: 2
+  m_FrontSortingOrder: 2000
+  m_BackSortingOrder: -1000
+  m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
   m_MaskSource: 0
 --- !u!114 &4699138654924910791
@@ -214,3 +215,18 @@ MonoBehaviour:
   growTime: 0.4
   holdTime: 2.5
   fadeTime: 2
+--- !u!114 &6919362964847992484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2731163158349499104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6847e0d8c036ce442aec68149092a200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preset: 0
+  backOrder: -1000
+  frontOrder: 2000

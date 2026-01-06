@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8576129427060476385}
   m_Layer: 8
   m_Name: GroundCheck
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 2570497154919352675}
   - component: {fileID: 565232495284404144}
   - component: {fileID: 8245259977168094908}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -177,9 +177,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingLayerID: 1905987741
+  m_SortingLayer: 2
+  m_SortingOrder: 2000
   m_Sprite: {fileID: 21300000, guid: d3c417c0b94bdfb408e9d15280ada7d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -214,9 +214,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_Interpolate: 1
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &1774733757524501642
 CapsuleCollider2D:
@@ -252,7 +252,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.01293993, y: -0.022644877}
+  m_Offset: {x: -0.01293993, y: 0.01}
   m_Size: {x: 0.40476418, y: 0.9971564}
   m_Direction: 0
 --- !u!114 &2570497154919352675
@@ -267,8 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faab79e468cdc7c4495220cb7be4c4bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
-  jumpForce: 15
+  speed: 7
+  jumpForce: 12
   maxFallSpeed: -25
   coyoteTime: 0.15
   staggerMoveMultiplier: 0
@@ -278,7 +278,7 @@ MonoBehaviour:
   currentJumpCount: 0
   dashSpeed: 20
   dashDuration: 0.1
-  dashCooldown: 4
+  dashCooldown: 1
   wallCheck: {fileID: 529049683556042194}
   groundCheck: {fileID: 8576129427060476385}
   wallCheckDistance: 0.5
@@ -300,12 +300,12 @@ MonoBehaviour:
   bombThrowArcY: 2
   coinProbeKey: 116
   probeCoinSetup: {fileID: 0}
-  probeAtMouseX: 1
+  probeAtMouseX: 0
   probeMouseMaxXOffset: 6
   dragableLayer:
     serializedVersion: 2
-    m_Bits: 0
-  dragRange: 1.5
+    m_Bits: 1024
+  dragRange: 1.1
   attackHitbox: {fileID: 8028199543541507529}
   dashEffectPrefab: {fileID: 5513733649221406610, guid: fe66811b132d02f46900a2e4f1d515d8, type: 3}
   jumpEffectPrefab: {fileID: 6463334891485378783, guid: d9d9a49421c54364e9dbe648b62109c4, type: 3}
@@ -314,18 +314,18 @@ MonoBehaviour:
   damage: 1
   groundAndDragLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1088
   abilitiesData: {fileID: 11400000, guid: f809fcae436c87949bdb76ac6c7ed229, type: 2}
   revealActivated: 0
   revealCircle: {fileID: 0}
-  fullRevealDuration: 5
+  fullRevealDuration: 8
   fullRevealRadius: 4000
   revealPotionKey: 113
   revealPotionCooldown: 5
   healthPotionKey: 101
   healAmount: 2
   healPotionCooldown: 3
-  inventoryData: {fileID: 0}
+  inventoryData: {fileID: 11400000, guid: d0228b304b1f70d4ab362803a4034233, type: 2}
   hud: {fileID: 0}
 --- !u!95 &565232495284404144
 Animator:
@@ -364,7 +364,7 @@ MonoBehaviour:
   maxHealth: 5
   health: 5
   knockbackForce: 10
-  invulnerabilityDuration: 1.5
+  invulnerabilityDuration: 1
 --- !u!1 &6095939309536450333
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 529049683556042194}
   m_Layer: 8
   m_Name: WallCheck
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -570,7 +570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5272404962149366117
 Transform:
   m_ObjectHideFlags: 0

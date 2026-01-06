@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3080032089285971996}
   - component: {fileID: 6287514344654012435}
   m_Layer: 0
-  m_Name: NoRevealZone
+  m_Name: OnlyLampRevealZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

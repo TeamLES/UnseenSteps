@@ -6,6 +6,11 @@ public class RevealCursorDisableZone : MonoBehaviour
     [Tooltip("Ak nemáš Player tag, daj sem LayerMask a sprav si vlastnú kontrolu.")]
     public string playerTag = "Player";
 
+    void OnDisable()
+    {
+        RevealCursorController.Instance?.RemoveBlock(this);
+    }
+
     void Reset()
     {
         var c = GetComponent<Collider2D>();
