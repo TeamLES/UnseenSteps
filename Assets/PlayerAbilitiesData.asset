@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd46db068136b84f83bce3494cceb9a, type: 3}
   m_Name: PlayerAbilitiesData
   m_EditorClassIdentifier: 
-  canDoubleJump: 0
-  canDash: 0
-  canWallJump: 0
-  canWallSlide: 0
+  canDoubleJump: 1
+  canDash: 1
+  canWallJump: 1
+  canWallSlide: 1
