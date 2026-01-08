@@ -129,7 +129,7 @@ public class DoorHandle : MonoBehaviour
             else
             {
                 bool hasKey = (inventoryData != null && inventoryData.keys > 0);
-                tooltipText.text = hasKey ? $"{interactKey} — Unlock" : $"Need  a  key";
+                tooltipText.text = hasKey ? $"{interactKey} - Unlock" : $"Need  a  key";
             }
         }
 

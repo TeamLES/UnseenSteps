@@ -44,8 +44,8 @@ public class InventoryManager : MonoBehaviour
     public void SetCooldowns(float healSeconds, float revealSeconds)
     {
         if (healCooldownText)
-            healCooldownText.text = healSeconds > 0.05f ? $"{healSeconds:0.0}s" : "";
+            healCooldownText.text = healSeconds > 0.05f ? $"{healSeconds:0.0}" : "";
         if (revealCooldownText)
-            revealCooldownText.text = revealSeconds > 0.05f ? $"{revealSeconds:0.0}s" : "";
+            revealCooldownText.text = revealSeconds > 0.05f ? $"{revealSeconds:0.0}" : "";
     }
 }
