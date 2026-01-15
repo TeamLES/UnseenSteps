@@ -44,8 +44,16 @@ public class InventoryManager : MonoBehaviour
     public void SetCooldowns(float healSeconds, float revealSeconds)
     {
         if (healCooldownText)
-            healCooldownText.text = healSeconds > 0.05f ? $"{healSeconds:0.0}" : "";
+        {
+            bool showHeal = healSeconds > 0.05f;
+            healCooldownText.gameObject.SetActive(showHeal);
+            if (showHeal) healCooldownText.text = $"{healSeconds:0.0}";
+        }
         if (revealCooldownText)
-            revealCooldownText.text = revealSeconds > 0.05f ? $"{revealSeconds:0.0}" : "";
+        {
+            bool showReveal = revealSeconds > 0.05f;
+            revealCooldownText.gameObject.SetActive(showReveal);
+            if (showReveal) revealCooldownText.text = $"{revealSeconds:0.0}";
+        }
     }
 }
