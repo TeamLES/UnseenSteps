@@ -1,49 +1,70 @@
 fileFormatVersion: 2
-guid: 62ac9f5bbeae05c45b0196a9615b5ea6
+guid: e2e8e939b2c0be44e823e0d5804bd6c3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4051113808473975213
-    second: quick_attack-Sheet_0
+      213: 1291833898727088051
+    second: quick_attack-Sheet_long_0
   - first:
-      213: -8243661888272124461
-    second: quick_attack-Sheet_1
+      213: 7059073664616645932
+    second: quick_attack-Sheet_long_1
   - first:
-      213: 2808682254691083649
-    second: quick_attack-Sheet_2
+      213: 7204120358951581496
+    second: quick_attack-Sheet_long_2
   - first:
-      213: 6526351093742615214
-    second: quick_attack-Sheet_3
+      213: 3306315950318412581
+    second: quick_attack-Sheet_long_3
   - first:
-      213: -7795701892719932556
-    second: quick_attack-Sheet_4
+      213: -7306891937882302168
+    second: quick_attack-Sheet_long_4
   - first:
-      213: -3801391385858827428
-    second: quick_attack-Sheet_5
+      213: 5817722522723192653
+    second: quick_attack-Sheet_long_5
   - first:
-      213: -760013694658266674
-    second: quick_attack-Sheet_6
+      213: 6357908173623319597
+    second: quick_attack-Sheet_long_6
   - first:
-      213: -6418795920868537553
-    second: quick_attack-Sheet_7
+      213: -8343138507689420768
+    second: quick_attack-Sheet_long_7
   - first:
-      213: -8800757166403466748
-    second: quick_attack-Sheet_8
+      213: -5230049788497434864
+    second: quick_attack-Sheet_long_8
   - first:
-      213: -9045964552464657207
-    second: quick_attack-Sheet_9
+      213: 9107414920001022130
+    second: quick_attack-Sheet_long_9
   - first:
-      213: -705799819820963569
-    second: quick_attack-Sheet_10
+      213: -2351327991962097380
+    second: quick_attack-Sheet_long_10
   - first:
-      213: 6358817972143477786
-    second: quick_attack-Sheet_11
+      213: -5960196221578067064
+    second: quick_attack-Sheet_long_11
   - first:
-      213: -9154819836205806872
-    second: quick_attack-Sheet_12
+      213: -7316877201725140743
+    second: quick_attack-Sheet_long_12
   - first:
-      213: 6857861819920758634
-    second: quick_attack-Sheet_13
+      213: -5354971775078464987
+    second: quick_attack-Sheet_long_13
+  - first:
+      213: -5939176165817840385
+    second: quick_attack-Sheet_long_14
+  - first:
+      213: -7530500304983928912
+    second: quick_attack-Sheet_long_15
+  - first:
+      213: -38177948749136799
+    second: quick_attack-Sheet_long_16
+  - first:
+      213: -8716123878103167743
+    second: quick_attack-Sheet_long_17
+  - first:
+      213: -4079322779430433451
+    second: quick_attack-Sheet_long_18
+  - first:
+      213: -4374158552458106587
+    second: quick_attack-Sheet_long_19
+  - first:
+      213: -363514064165722621
+    second: quick_attack-Sheet_long_20
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,7 +160,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: quick_attack-Sheet_0
+      name: quick_attack-Sheet_long_0
       rect:
         serializedVersion: 2
         x: 0
@@ -154,14 +175,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: da965ca8b82783830800000000000000
-      internalID: 4051113808473975213
+      spriteID: 3bf9f6226148de110800000000000000
+      internalID: 1291833898727088051
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_1
+      name: quick_attack-Sheet_long_1
       rect:
         serializedVersion: 2
         x: 64
@@ -176,14 +197,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3d53d1d7031a89d80800000000000000
-      internalID: -8243661888272124461
+      spriteID: c254acee81ed6f160800000000000000
+      internalID: 7059073664616645932
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_2
+      name: quick_attack-Sheet_long_2
       rect:
         serializedVersion: 2
         x: 128
@@ -198,14 +219,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1852ecd21a17af620800000000000000
-      internalID: 2808682254691083649
+      spriteID: 837f7722c4d2af360800000000000000
+      internalID: 7204120358951581496
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_3
+      name: quick_attack-Sheet_long_3
       rect:
         serializedVersion: 2
         x: 192
@@ -220,14 +241,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eaab20eddb1429a50800000000000000
-      internalID: 6526351093742615214
+      spriteID: 523efe5d6d462ed20800000000000000
+      internalID: 3306315950318412581
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_4
+      name: quick_attack-Sheet_long_4
       rect:
         serializedVersion: 2
         x: 256
@@ -242,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 47b86959e6a10d390800000000000000
-      internalID: -7795701892719932556
+      spriteID: 8291c5efe74b89a90800000000000000
+      internalID: -7306891937882302168
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_5
+      name: quick_attack-Sheet_long_5
       rect:
         serializedVersion: 2
         x: 320
@@ -264,14 +285,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c5b97a9dcaebe3bc0800000000000000
-      internalID: -3801391385858827428
+      spriteID: d4f84b09fc3bcb050800000000000000
+      internalID: 5817722522723192653
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_6
+      name: quick_attack-Sheet_long_6
       rect:
         serializedVersion: 2
         x: 384
@@ -286,14 +307,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ec936794293e375f0800000000000000
-      internalID: -760013694658266674
+      spriteID: d2cde5b5cc3db3850800000000000000
+      internalID: 6357908173623319597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_7
+      name: quick_attack-Sheet_long_7
       rect:
         serializedVersion: 2
         x: 448
@@ -308,14 +329,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f2b87e24e1bdbe6a0800000000000000
-      internalID: -6418795920868537553
+      spriteID: 0281a492bb7373c80800000000000000
+      internalID: -8343138507689420768
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_8
+      name: quick_attack-Sheet_long_8
       rect:
         serializedVersion: 2
         x: 512
@@ -330,14 +351,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 40a4c0e4cfd6dd580800000000000000
-      internalID: -8800757166403466748
+      spriteID: 017e0076d612b67b0800000000000000
+      internalID: -5230049788497434864
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_9
+      name: quick_attack-Sheet_long_9
       rect:
         serializedVersion: 2
         x: 576
@@ -352,14 +373,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9c49197ca27467280800000000000000
-      internalID: -9045964552464657207
+      spriteID: 2b8e0c8dd99046e70800000000000000
+      internalID: 9107414920001022130
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_10
+      name: quick_attack-Sheet_long_10
       rect:
         serializedVersion: 2
         x: 640
@@ -374,14 +395,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f096909adce7436f0800000000000000
-      internalID: -705799819820963569
+      spriteID: c19aaa036a76e5fd0800000000000000
+      internalID: -2351327991962097380
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_11
+      name: quick_attack-Sheet_long_11
       rect:
         serializedVersion: 2
         x: 704
@@ -396,14 +417,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a145bf4514f0f3850800000000000000
-      internalID: 6358817972143477786
+      spriteID: 883c63d6d11294da0800000000000000
+      internalID: -5960196221578067064
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_12
+      name: quick_attack-Sheet_long_12
       rect:
         serializedVersion: 2
         x: 768
@@ -418,14 +439,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8eac0400ddb83f080800000000000000
-      internalID: -9154819836205806872
+      spriteID: 9f0d40693fa357a90800000000000000
+      internalID: -7316877201725140743
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: quick_attack-Sheet_13
+      name: quick_attack-Sheet_long_13
       rect:
         serializedVersion: 2
         x: 832
@@ -440,8 +461,162 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a67371f9df40c2f50800000000000000
-      internalID: 6857861819920758634
+      spriteID: 522843cda815fa5b0800000000000000
+      internalID: -5354971775078464987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quick_attack-Sheet_long_14
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffc06f98ebec39da0800000000000000
+      internalID: -5939176165817840385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quick_attack-Sheet_long_15
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bf4674fed94e7790800000000000000
+      internalID: -7530500304983928912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quick_attack-Sheet_long_16
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16cfd8e9b5d587ff0800000000000000
+      internalID: -38177948749136799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quick_attack-Sheet_long_17
+      rect:
+        serializedVersion: 2
+        x: 1088
+        y: 0
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10d4c5b438b1a0780800000000000000
+      internalID: -8716123878103167743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quick_attack-Sheet_long_18
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55dc3e79b855367c0800000000000000
+      internalID: -4079322779430433451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quick_attack-Sheet_long_19
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 0
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5296f79c8fddb43c0800000000000000
+      internalID: -4374158552458106587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: quick_attack-Sheet_long_20
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3062b8672e984faf0800000000000000
+      internalID: -363514064165722621
       vertices: []
       indices: 
       edges: []
@@ -450,7 +625,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 522174c3cfe5bf147a4ff78e2bdebfbc
+    spriteID: d7bc9d91ad7cc1e44b8d3ad090dec8ff
     internalID: 0
     vertices: []
     indices: 
@@ -462,20 +637,27 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      quick_attack-Sheet_0: 4051113808473975213
-      quick_attack-Sheet_1: -8243661888272124461
-      quick_attack-Sheet_10: -705799819820963569
-      quick_attack-Sheet_11: 6358817972143477786
-      quick_attack-Sheet_12: -9154819836205806872
-      quick_attack-Sheet_13: 6857861819920758634
-      quick_attack-Sheet_2: 2808682254691083649
-      quick_attack-Sheet_3: 6526351093742615214
-      quick_attack-Sheet_4: -7795701892719932556
-      quick_attack-Sheet_5: -3801391385858827428
-      quick_attack-Sheet_6: -760013694658266674
-      quick_attack-Sheet_7: -6418795920868537553
-      quick_attack-Sheet_8: -8800757166403466748
-      quick_attack-Sheet_9: -9045964552464657207
+      quick_attack-Sheet_long_0: 1291833898727088051
+      quick_attack-Sheet_long_1: 7059073664616645932
+      quick_attack-Sheet_long_10: -2351327991962097380
+      quick_attack-Sheet_long_11: -5960196221578067064
+      quick_attack-Sheet_long_12: -7316877201725140743
+      quick_attack-Sheet_long_13: -5354971775078464987
+      quick_attack-Sheet_long_14: -5939176165817840385
+      quick_attack-Sheet_long_15: -7530500304983928912
+      quick_attack-Sheet_long_16: -38177948749136799
+      quick_attack-Sheet_long_17: -8716123878103167743
+      quick_attack-Sheet_long_18: -4079322779430433451
+      quick_attack-Sheet_long_19: -4374158552458106587
+      quick_attack-Sheet_long_2: 7204120358951581496
+      quick_attack-Sheet_long_20: -363514064165722621
+      quick_attack-Sheet_long_3: 3306315950318412581
+      quick_attack-Sheet_long_4: -7306891937882302168
+      quick_attack-Sheet_long_5: 5817722522723192653
+      quick_attack-Sheet_long_6: 6357908173623319597
+      quick_attack-Sheet_long_7: -8343138507689420768
+      quick_attack-Sheet_long_8: -5230049788497434864
+      quick_attack-Sheet_long_9: 9107414920001022130
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
