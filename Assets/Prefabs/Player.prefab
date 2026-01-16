@@ -307,6 +307,18 @@ MonoBehaviour:
     m_Bits: 1024
   dragRange: 1.1
   attackHitbox: {fileID: 8028199543541507529}
+  comboClickWindow: 0.35
+  attackAnimDuration: 0.25
+  comboAttackDurations:
+  - 0.6
+  - 0.5
+  - 0.5
+  - 0.5
+  comboStateNames:
+  - player_attack1
+  - player_attack2
+  - player_attack3
+  - player_attack4
   dashEffectPrefab: {fileID: 5513733649221406610, guid: fe66811b132d02f46900a2e4f1d515d8, type: 3}
   jumpEffectPrefab: {fileID: 6463334891485378783, guid: d9d9a49421c54364e9dbe648b62109c4, type: 3}
   healEffectPrefab: {fileID: 2280450132527623783, guid: badaedee7ffeafc42953580912b4d442, type: 3}

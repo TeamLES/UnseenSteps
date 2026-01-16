@@ -86,6 +86,26 @@ public class PlayerController : MonoBehaviour
     public GameObject attackHitbox;
     private bool isAttacking;
 
+    [Header("Rapid Combo")]
+    [Tooltip("Time window between clicks to advance combo.")]
+    public float comboClickWindow = 0.35f;
+    [Tooltip("How long each attack is treated as 'attacking' for movement slowdown.")]
+    public float attackAnimDuration = 0.5f;
+    [Tooltip("Optional per-attack durations (seconds). If set, overrides attackAnimDuration for each step.")]
+    public float[] comboAttackDurations = new float[] { 0.6f, 0.5f, 0.5f, 0.5f };
+    [Tooltip("Attack state names in order.")]
+    public string[] comboStateNames = new string[] { "player_attack1", "player_attack2", "player_attack3", "player_attack4" };
+    [Header("Attack Hitbox Timing")]
+    [Tooltip("Delay before hitbox becomes active after an attack starts.")]
+    public float hitboxEnableDelay = 0.05f;
+    [Tooltip("How long the hitbox stays active.")]
+    public float hitboxActiveDuration = 0.12f;
+    private int comboStep = 0;
+    private float lastAttackInputTime = -Mathf.Infinity;
+    private Coroutine attackEndCo;
+    private int bufferedClicks = 0;
+    private Coroutine hitboxCo;
+
     [Header("VFX")]
     public GameObject dashEffectPrefab;
     public GameObject jumpEffectPrefab;
@@ -224,12 +244,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && !isAttacking && !isStunned && !isWallSliding && !isDashing)
+        if (Input.GetMouseButtonDown(0) && !isStunned && !isWallSliding && !isDashing)
         {
-            FaceMouse();
-            isAttacking = true;
-            animator.SetTrigger(AnimationStrings.Attack);
-            PlaySfx("playerHit");
+            HandleRapidComboAttack();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && abilitiesData.canDash && !isDashing && !isStunned && Time.time - lastDashTime >= dashCooldown)
@@ -446,33 +463,121 @@ public class PlayerController : MonoBehaviour
 
     public void EnableAttackHitbox()
     {
-        // resetneme a zapneme hitbox collider
-        attackHitbox.SetActive(false);
+        if (attackHitbox == null) return;
         attackHitbox.SetActive(true);
-
-        // zskame BoxCollider2D a prepotame pozciu do world space
-        BoxCollider2D col = attackHitbox.GetComponent<BoxCollider2D>();
-        Vector2 worldPos = attackHitbox.transform.TransformPoint(col.offset);
-        Vector2 size = col.size;
-        float angle = attackHitbox.transform.eulerAngles.z;
-
-        // OBSAHOVO HADME VETKY objekty v hitboxe
-        Collider2D[] hits = Physics2D.OverlapBoxAll(worldPos, size, angle);
-
-        foreach (var h in hits)
-        {
-            IDamageable damageable = h.GetComponent<IDamageable>();
-            if (damageable != null && h.transform.root != transform.root)
-            {
-                damageable.TakeDamage(damage);
-            }
-        }
     }
 
     public void DisableAttackHitbox()
     {
+        if (attackHitbox == null) return;
         attackHitbox.SetActive(false);
+    }
+
+    private void HandleRapidComboAttack()
+    {
+        float now = Time.time;
+        bool shouldReset = now - lastAttackInputTime > comboClickWindow;
+        lastAttackInputTime = now;
+
+        if (isAttacking)
+        {
+            bufferedClicks = Mathf.Min(bufferedClicks + 1, 2);
+            return;
+        }
+
+        if (shouldReset)
+        {
+            comboStep = 0;
+            bufferedClicks = 0;
+        }
+
+        StartNextComboStep();
+    }
+
+    private IEnumerator EndAttackAfterDelay(float duration)
+    {
+        yield return new WaitForSeconds(duration);
         isAttacking = false;
+
+        if (bufferedClicks > 0 && Time.time - lastAttackInputTime <= comboClickWindow)
+        {
+            bufferedClicks--;
+            StartNextComboStep();
+            yield break;
+        }
+
+        if (Time.time - lastAttackInputTime > comboClickWindow)
+            comboStep = 0;
+    }
+
+    private void StartNextComboStep()
+    {
+        if (Time.time - lastAttackInputTime > comboClickWindow)
+            comboStep = 0;
+
+        if (comboStateNames == null || comboStateNames.Length == 0)
+        {
+            comboStep = 1;
+        }
+        else
+        {
+            comboStep++;
+            if (comboStep > comboStateNames.Length)
+                comboStep = 1;
+        }
+
+        FaceMouse();
+        isAttacking = true;
+
+        if (comboStateNames != null && comboStateNames.Length > 0)
+        {
+            string stateName = comboStateNames[Mathf.Clamp(comboStep - 1, 0, comboStateNames.Length - 1)];
+            if (!string.IsNullOrEmpty(stateName))
+                animator.CrossFade(stateName, 0.02f, 0);
+        }
+        else
+        {
+            animator.SetTrigger(AnimationStrings.Attack);
+        }
+
+        PlaySfx("playerHit");
+
+        if (hitboxCo != null)
+            StopCoroutine(hitboxCo);
+        hitboxCo = StartCoroutine(AttackHitboxRoutine());
+
+        if (attackEndCo != null)
+            StopCoroutine(attackEndCo);
+        attackEndCo = StartCoroutine(EndAttackAfterDelay(GetAttackDurationForStep(comboStep)));
+    }
+
+    private IEnumerator AttackHitboxRoutine()
+    {
+        if (attackHitbox == null)
+            yield break;
+
+        if (hitboxEnableDelay > 0f)
+            yield return new WaitForSeconds(hitboxEnableDelay);
+
+        EnableAttackHitbox();
+
+        if (hitboxActiveDuration > 0f)
+            yield return new WaitForSeconds(hitboxActiveDuration);
+
+        DisableAttackHitbox();
+    }
+
+    private float GetAttackDurationForStep(int step)
+    {
+        if (comboAttackDurations != null && comboAttackDurations.Length > 0)
+        {
+            int index = Mathf.Clamp(step - 1, 0, comboAttackDurations.Length - 1);
+            float duration = comboAttackDurations[index];
+            if (duration > 0f)
+                return duration;
+        }
+
+        return attackAnimDuration;
     }
 
     public IEnumerator Stun(float duration)
