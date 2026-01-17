@@ -100,6 +100,10 @@ public class PlayerController : MonoBehaviour
     public float hitboxEnableDelay = 0.05f;
     [Tooltip("How long the hitbox stays active.")]
     public float hitboxActiveDuration = 0.12f;
+    [Tooltip("Optional per-attack hitbox enable delays.")]
+    public float[] hitboxEnableDelays;
+    [Tooltip("Optional per-attack hitbox active durations.")]
+    public float[] hitboxActiveDurations;
     private int comboStep = 0;
     private float lastAttackInputTime = -Mathf.Infinity;
     private Coroutine attackEndCo;
@@ -544,27 +548,56 @@ public class PlayerController : MonoBehaviour
 
         if (hitboxCo != null)
             StopCoroutine(hitboxCo);
-        hitboxCo = StartCoroutine(AttackHitboxRoutine());
+        hitboxCo = StartCoroutine(AttackHitboxRoutine(comboStep));
 
         if (attackEndCo != null)
             StopCoroutine(attackEndCo);
         attackEndCo = StartCoroutine(EndAttackAfterDelay(GetAttackDurationForStep(comboStep)));
     }
 
-    private IEnumerator AttackHitboxRoutine()
+    private IEnumerator AttackHitboxRoutine(int step)
     {
         if (attackHitbox == null)
             yield break;
 
-        if (hitboxEnableDelay > 0f)
-            yield return new WaitForSeconds(hitboxEnableDelay);
+        float enableDelay = GetHitboxEnableDelay(step);
+        float activeDuration = GetHitboxActiveDuration(step);
+
+        if (enableDelay > 0f)
+            yield return new WaitForSeconds(enableDelay);
 
         EnableAttackHitbox();
 
-        if (hitboxActiveDuration > 0f)
-            yield return new WaitForSeconds(hitboxActiveDuration);
+        if (activeDuration > 0f)
+            yield return new WaitForSeconds(activeDuration);
 
         DisableAttackHitbox();
+    }
+
+    private float GetHitboxEnableDelay(int step)
+    {
+        if (hitboxEnableDelays != null && hitboxEnableDelays.Length > 0)
+        {
+            int index = Mathf.Clamp(step - 1, 0, hitboxEnableDelays.Length - 1);
+            float value = hitboxEnableDelays[index];
+            if (value >= 0f)
+                return value;
+        }
+
+        return hitboxEnableDelay;
+    }
+
+    private float GetHitboxActiveDuration(int step)
+    {
+        if (hitboxActiveDurations != null && hitboxActiveDurations.Length > 0)
+        {
+            int index = Mathf.Clamp(step - 1, 0, hitboxActiveDurations.Length - 1);
+            float value = hitboxActiveDurations[index];
+            if (value >= 0f)
+                return value;
+        }
+
+        return hitboxActiveDuration;
     }
 
     private float GetAttackDurationForStep(int step)
