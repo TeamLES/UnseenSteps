@@ -587,6 +587,10 @@ PrefabInstance:
       propertyPath: m_MaskInteraction
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2676458052818138497, guid: e1bc1507638bb5a4eadf109a3520e4fe, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 8651098197995318093, guid: e1bc1507638bb5a4eadf109a3520e4fe, type: 3}
       propertyPath: m_Name
       value: EnemyShooter
@@ -2720,6 +2724,14 @@ PrefabInstance:
       propertyPath: targetLayers.m_Bits
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4271614514132748301, guid: 85f10cd069e41464f8ae4a5593c345f1, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271614514132748301, guid: 85f10cd069e41464f8ae4a5593c345f1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 5000327538629097129, guid: 85f10cd069e41464f8ae4a5593c345f1, type: 3}
       propertyPath: m_TagString
       value: Player
@@ -4361,6 +4373,10 @@ PrefabInstance:
       propertyPath: m_MaskInteraction
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3526648447228463449, guid: 72b1ba13b4572d74e9982bec8e681a00, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 6608046094593357362, guid: 72b1ba13b4572d74e9982bec8e681a00, type: 3}
       propertyPath: m_Name
       value: Wolf
@@ -7995,6 +8011,10 @@ PrefabInstance:
       propertyPath: m_MaskInteraction
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2834365773685452004, guid: 92262467000ef5045b4f443f0b5dab81, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 3698002109502231032, guid: 92262467000ef5045b4f443f0b5dab81, type: 3}
       propertyPath: m_Name
       value: EnemyNinja
